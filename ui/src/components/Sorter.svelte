@@ -1,21 +1,36 @@
 <script lang="ts">
 	import { PROPERTIES } from "@store/stores"
 	import type { IProperty } from "@typings/type"
+    import { fly } from "svelte/transition"
 
     export let Properties: IProperty[] = $PROPERTIES
-
-
-
-    let sortType: string = "asc"
+    let lowToHigh: boolean = true
     let searchTerm: string = ""
+    let onlyGarage: boolean = false
 
     $: {
-        if (searchTerm || sortType) {
-            Properties = sortPrice(sortType)
+        if (searchTerm || lowToHigh || onlyGarage || $PROPERTIES) {
+            filter()
         }
     }
 
-    function returnSearch(term: string, properties: IProperty[]) {
+    function filter() {
+        let properties: IProperty[] = $PROPERTIES
+        properties = filterForSale(properties)
+        properties = filterGarage(properties)
+        properties = filterPriceSort(properties)
+        properties = filterSearch(properties)
+        Properties = properties
+    }
+
+    function filterForSale(properties: IProperty[]) {
+        // filter properties that have for_sale = 1 or true
+        properties = properties.filter((property) => property.for_sale)
+        return properties
+    }
+
+    function filterSearch(properties: IProperty[]) {
+        if (searchTerm.length < 1) return properties
         properties = properties.filter((property) => {
                 const labelFilter = property.label.toLowerCase().includes(searchTerm.toLowerCase())
                 const descriptionFilter = property.description.toLowerCase().includes(searchTerm.toLowerCase())
@@ -25,22 +40,28 @@
         return properties
     }
 
-    function sortPrice(type: string) {
-        sortType = type
-        let properties: IProperty[] = []
-        if (type == "asc") {
-            properties = $PROPERTIES.sort((a, b) => a.price - b.price)
-        } else if (type == "desc") {
-            properties = $PROPERTIES.sort((a, b) => b.price - a.price)
+    function filterPriceSort(properties: IProperty[]) {
+        if (lowToHigh) {
+            properties = properties.sort((a, b) => a.price - b.price)
+        } else {
+            properties = properties.sort((a, b) => b.price - a.price)
         }
-        return returnSearch(searchTerm, properties)
+        return properties
+    }
+
+    function filterGarage(properties: IProperty[]) {
+        if (!onlyGarage) return properties
+        properties = properties.filter((property) => property.garage_data) // Only return properties with garage
+        return properties
     }
 
 </script>
 
 
 
-<div class="w-full h-fit flex flex-row item-center justify-center relative gap-8 mb-4">
+<div class="w-full h-fit flex flex-row item-center justify-center relative gap-8 mb-4"
+in:fly={{ y: 10, duration: 250 }}
+>
 
     <!-- Search -->
     <div class="flex flex-row items-center bg-[color:var(--color-secondary)]"
@@ -55,18 +76,27 @@
     </div>
 
     <!-- Sort -->
-    <div class="flex flex-row items-center"
-        style="background-color: var(--color-{sortType.length>0?"accent":"secondary"});"
+    <button class="flex flex-row items-center gap-4 px-4"
+        style="background-color: var(--color-{!lowToHigh?"accent":"secondary"});"
+        on:click={() => lowToHigh = !lowToHigh}
     >
-        <div class="grid place-items-center aspect-square p-4"
+        <div class="grid place-items-center aspect-square"
+        
         >
-            <i class="fas fa-sort"></i>
+            <i class="fas fa-caret-{lowToHigh?"up":"down"}"></i>
         </div>
+        <div class="grid place-items-center w-[8rem]"
+            >
+            <p class="text-xl"> <i class="fas fa-dollar-sign" /> {lowToHigh?"Low to High":"High to Low"}</p>
+        </div>
+    </button>
 
-        <select class="w-[20rem] h-full bg-[color:var(--color-tertiary)] p-2" on:change={(e) => sortPrice(e.target.value)}>
-            <option value="asc">Price: Low to High</option>
-            <option value="desc">Price: High to Low</option>
-        </select>
-    </div>
-
+    <!-- Garage -->
+    <button class="flex flex-row items-center"
+        style="background-color: var(--color-{onlyGarage?"accent":"secondary"});"
+        on:click={() => onlyGarage = !onlyGarage}>
+        <div class="grid place-items-center aspect-square p-4">
+            <i class="fas fa-warehouse"></i>
+        </div>
+    </button>
 </div>

@@ -16,35 +16,20 @@
 		property_id: 1,
 		label: 'Test Property',
 		description: 'This is a test property',
-		shell: 'Standard Motel',
-		extra_img: [
-			{
-				url: 'https://i.postimg.cc/g2PYn8XR/bathroom.webp',
-				label: 'Bathroom',
-			},
-			{
-				url: 'https://i.postimg.cc/zBMN5gYy/Bedroom.webp',
-				label: 'Bedroom',
-			},
-			{
-				url: 'https://i.postimg.cc/MTXwhYNk/entry.webp',
-				label: 'Entrance',
-			},
-			{
-				url: 'https://i.postimg.cc/GtyCpmbq/Kitchen-and-Dining.webp',
-				label: 'Kitchen and Dining',
-			},
-			{
-				url: 'https://i.postimg.cc/ThvX5vwG/living-room-1.webp',
-				label: 'Living Room Angle 1',
-			},
-			{
-				url: 'https://i.postimg.cc/dQkkCR1S/living-room-2.webp',
-				label: 'Living Room Angle 2',
-			},
-		],
+		shell: 'Modern Hotel',
 		price: Math.floor(Math.random() * 1000000),
-		door: {
+		for_sale: 1,
+		extra_imgs: [
+			{
+				"url": "https://i.postimg.cc/QCJr7nWT/entry.webp",
+				"label": "Entrance"
+			},
+			{
+				"url": "https://i.postimg.cc/CMG09d6x/garage.webp",
+				"label": "Garage"
+			}
+		],
+		door_data: {
 			x: 0,
 			y: 0,
 			z: 0,
@@ -53,7 +38,7 @@
 			width: 0,
 			locked: false,
 		},
-		garage: {
+		garage_data: {
 			x: 0,
 			y: 0,
 			z: 0,
@@ -86,6 +71,7 @@
 						newProperty.property_id = properties.length + 1
 						newProperty.label = `Test Property ${Math.floor(Math.random() * 1000000)}`
 						newProperty.price = Math.floor(Math.random() * 1000000)
+						newProperty.for_sale = (Math.random() > 0.5 ? 1 : 0)
 						let coords = {
 							x: Math.floor(Math.random() * 1000000),
 							y: Math.floor(Math.random() * 1000000),
@@ -103,6 +89,21 @@
 				},
 			],
 		},
+		{
+			component: 'Is Realtor',
+			actions: [
+				{
+					name: 'true',
+					action: 'setRealtor',
+					data: true,
+				},
+				{
+					name: 'false',
+					action: 'setRealtor',
+					data: false,
+				},
+			],
+		}
 		// {
 		// 	component: 'Example',
 		// 	actions : [

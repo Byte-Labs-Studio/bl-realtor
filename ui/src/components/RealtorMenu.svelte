@@ -2,7 +2,7 @@
 	import Tabs from './Tabs.svelte'
 	import type { ITab } from '@typings/type'
 	import Properties from './Properties.svelte'
-	import { afterUpdate, onDestroy, onMount } from 'svelte'
+	import { TEMP_HIDE } from '@store/stores'
 
 	let AvailableTabs: ITab[] = [
 		{
@@ -22,6 +22,7 @@
 
 <div
 	class="w-[90%] h-[90%] bg-[color:var(--color-primary)] absolute -translate-x-1/2 left-1/2 top-1/2 -translate-y-1/2 flex flex-col"
+	style="opacity: {$TEMP_HIDE?"0":"1"};"
 >
 	<div class=" w-full h-full overflow-hidden">
 		<svelte:component this={selectedTab.component} />

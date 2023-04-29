@@ -7,10 +7,15 @@
     padding: 0;
     font-family: 'Satoshi', sans-serif;
     color: #fff;
+    -webkit-user-drag: none;
 }
 
 *:focus {
     outline: none;
+}
+
+button:hover {
+    filter: brightness(1.1);
 }
 
 :root {

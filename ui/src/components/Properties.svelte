@@ -1,10 +1,15 @@
 <script lang="ts">
-	import { IS_REALTOR, PROPERTIES } from "@store/stores"
+	import { IS_REALTOR, PROPERTIES, SHELLS } from "@store/stores"
 	import type { IProperty } from "@typings/type"
 	import { afterUpdate, onDestroy, onMount } from "svelte"
 	import Sorter from "./Sorter.svelte"
+	import { fly } from "svelte/transition"
+	import PropertyModal from "./PropertyModal.svelte"
+	import CreateCard from "./CreateCard.svelte"
+	import PorpertyCard from "./PorpertyCard.svelte"
 
     let Properties: IProperty[] = [];
+    let selectedProperty: IProperty | null = null;
 
     let El: HTMLElement; // The element that will be scrolled
     let initial: boolean = true; // If the scroll position has been set
@@ -23,62 +28,43 @@
     onDestroy(() => {
         const scrollTop = El.scrollTop;
         sessionStorage.setItem("propertiesScrollPosition", scrollTop.toString());
-        console.log("Saved scroll position: ", scrollTop);
     })
 
+    let isCreating: boolean = false;
 </script>
 
-<div class="w-full h-full pt-[3rem] gap-[4rem]">
+
+{#if selectedProperty}
+    <PropertyModal bind:selectedProperty />
+{/if}
+
+
+<div class="w-full h-full pt-[2rem] gap-[0rem] z-[10] items-center flex flex-col ">
 
     <Sorter bind:Properties />
+    <div class="flex flex-row gap-2 items-center w-fit px-6 py-2 justify-center bg-[color:var(--color-secondary)]"
+        in:fly={{ y: 10, duration: 250 }}
+    >
+		<p class="text-2xl font-bold">List New Property</p>
+		<div class="flex flex-row w-fit gap-4 items-center justify-center">
+			<button
+				class="bg-[color:var(--color-tertiary)] w-12 flex flex-row items-center justify-center gap-2 p-2"
+				on:click={() => (isCreating = !isCreating)}
+			>
+				<i class="fas fa-caret-{isCreating ? 'up' : 'down'}" />
+			</button>
+		</div>
+	</div>
+    {#if isCreating}
+        <CreateCard bind:isCreating/>
+    {/if}
 
     <!-- ACTUAL CONTENT -->
-    <div bind:this={El} class="w-full h-full relative flex py-[5rem] pb-[8rem] flex-row flex-grow flex-shrink gap-4 flex-wrap items-center justify-center overflow-y-scroll scroll-style scroll-style-vertical ">
-        {#each Properties as {label, description, price, extra_img, shell, garage}, i}
-            <button class="flex item flex-col w-[30%] h-fit bg-[color:var(--color-secondary)] hover:brightness-110">
-                <img src="https://i.postimg.cc/q7PQTJZk/motel.webp" alt="" class="w-full h-[20rem] object-cover object-center">
-                <div class="flex flex-col flex-grow flex-shrink gap-4 p-4">
-                    <h1 class="text-2xl font-bold">{label}</h1>
-                    <p class="text-xl">{description}</p>
-
-                    <!-- Chips -->
-                    <div class="flex flex-row flex-grow flex-wrap flex-shrink gap-4 items-center justify-start">
-                        <div class="w-fit px-4 h-[3rem]  bg-[color:var(--color-tertiary)] items-center justify-center flex flex-row gap-4">
-                            <i class="fas fa-dollar-sign"></i>
-                            <p>{price.toLocaleString()}</p>
-                        </div>
-                        <div class="w-fit px-4 h-[3rem]  bg-[color:var(--color-tertiary)] items-center justify-center flex flex-row gap-4">
-                            <i class="fas fa-image"></i>
-                            <p>{extra_img.length}</p>
-                        </div>
-                        <div class="w-fit px-4 h-[3rem]  bg-[color:var(--color-tertiary)] items-center justify-center flex flex-row gap-4">
-                            <i class="fas fa-tent"></i>
-                            <p>{shell}</p>
-                        </div>
-                        <div class="w-fit px-4 h-[3rem]  bg-[color:var(--color-tertiary)] items-center justify-center flex flex-row gap-4">
-                            <i class="fas fa-warehouse"></i>
-                            <p>{garage?"Yes":"No"}</p>
-                        </div>
-                    </div>
-
-                    <!-- Buttons -->
-                    <!-- <div class="flex flex-row flex-grow flex-shrink gap-4 items-center justify-center">
-                        {#if $IS_REALTOR}
-                            <button class="w-fit px-8 h-[5rem]  bg-[color:var(--color-tertiary)] items-center justify-center flex flex-row gap-4">
-                                <i class="fas fa-pen"></i>
-                                <p>Edit</p>
-                            </button>
-                        {/if}
-                    </div> -->
-                </div>
-            </button>
+    <div bind:this={El} class="w-full h-full relative flex py-[5rem] pb-[8rem] flex-row flex-grow flex-shrink gap-4 flex-wrap items-start justify-center overflow-y-scroll scroll-style scroll-style-vertical ">
+        {#each Properties as property, i}
+            <PorpertyCard bind:selectedProperty {property} />
         {/each}
     </div>
 </div>
 
-<style>
 
-    .item {
-        border: 5px solid var(--color-secondary);
-    }
-</style>

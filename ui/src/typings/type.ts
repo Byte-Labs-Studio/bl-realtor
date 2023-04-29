@@ -1,7 +1,7 @@
 export interface ITab {
-    name: string,
-    icon: string,
-    component: any
+    name: string;
+    icon: string;
+    component: any;
 }
 
 type coords = {
@@ -24,11 +24,13 @@ type img = {
 
 export interface IProperty {
     property_id: number;
+    owner?: string;
     label: string;
     description: string;
     shell: string;
-    extra_img: img[];
+    extra_imgs: img[];
+    for_sale: number;
     price: number;
-    door: door;
-    garage: coords | null;
+    door_data: door;
+    garage_data: coords | null;
 }

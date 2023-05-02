@@ -1,15 +1,16 @@
 <script lang="ts">
-	import { PROPERTIES } from "@store/stores"
+	import { REALTOR_GRADE, PROPERTIES } from "@store/stores"
 	import type { IProperty } from "@typings/type"
     import { fly } from "svelte/transition"
 
     export let Properties: IProperty[] = $PROPERTIES
+    let filterSale: boolean = true
     let lowToHigh: boolean = true
     let searchTerm: string = ""
     let onlyGarage: boolean = false
 
     $: {
-        if (searchTerm || lowToHigh || onlyGarage || $PROPERTIES) {
+        if (searchTerm || lowToHigh || onlyGarage || filterSale || $PROPERTIES) {
             filter()
         }
     }
@@ -25,6 +26,7 @@
 
     function filterForSale(properties: IProperty[]) {
         // filter properties that have for_sale = 1 or true
+        if (!filterSale) return properties
         properties = properties.filter((property) => property.for_sale)
         return properties
     }
@@ -81,7 +83,6 @@ in:fly={{ y: 10, duration: 250 }}
         on:click={() => lowToHigh = !lowToHigh}
     >
         <div class="grid place-items-center aspect-square"
-        
         >
             <i class="fas fa-caret-{lowToHigh?"up":"down"}"></i>
         </div>
@@ -99,4 +100,17 @@ in:fly={{ y: 10, duration: 250 }}
             <i class="fas fa-warehouse"></i>
         </div>
     </button>
+
+    <!-- For Sale -->
+    {#if $REALTOR_GRADE !== null}
+        <button class="flex flex-row items-center gap-4 px-4"
+            style="background-color: var(--color-{!filterSale?"accent":"secondary"});"
+            on:click={() => filterSale = !filterSale}
+        >
+            <div class="grid place-items-center w-[8rem]"
+                >
+                <p class="text-xl flex flex-row items-center justify-center"> <i class="fas fa-dollar-sign" /> {filterSale?"For Sale Only":"All Properties"}</p>
+            </div>
+        </button>
+    {/if}
 </div>

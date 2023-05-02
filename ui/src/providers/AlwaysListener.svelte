@@ -4,10 +4,10 @@
 	import {
 		browserMode,
 		visibility,
-		IS_REALTOR,
+		REALTOR_GRADE,
 		PROPERTIES,
 		SHELLS,
-
+        CONFIG,
 		TEMP_HIDE
 
 	} from '@store/stores'
@@ -30,9 +30,14 @@
 		}
 	})
 
-	ReceiveNUI('setRealtor', (data: boolean) => {
-		$IS_REALTOR = data
+	ReceiveNUI('setRealtorGrade', (grade: number) => {
+        console.log('setRealtorGrade', grade)
+		$REALTOR_GRADE = grade
 	})
+
+    ReceiveNUI("setConfig", (data: any) => {
+        $CONFIG = data
+    })
 
 	ReceiveNUI('setProperties', (data: any) => {
 		$PROPERTIES = data

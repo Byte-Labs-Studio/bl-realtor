@@ -1,4 +1,10 @@
 local QBCore = exports['qb-core']:GetCoreObject()
+
+RegisterNetEvent('QBCore:Server:UpdateObject', function()
+	if source ~= '' then return false end
+	QBCore = exports['qb-core']:GetCoreObject()
+end)
+
 local Shells = {}
 local Properties = {}
 
@@ -26,14 +32,44 @@ local function updateMenuData()
 	})
 end
 
+local function setRealtor(jobInfo)
+	print("setRealtor")
+	if jobInfo.name == "realtor" then
+		print("setRealtorGrade", jobInfo.grade.level)
+		SendNUIMessage({
+			action = "setRealtorGrade",
+			data = jobInfo.grade.level
+		})
+	else 
+		SendNUIMessage({
+			action = "setRealtorGrade",
+			data = nil
+		})
+	end
+end
+
 AddEventHandler("onResourceStart", function(resourceName)
 	if (GetCurrentResourceName() == resourceName) then
 		Wait(2000)
 		updateMenuData()
+		SendNUIMessage({
+			action = "setConfig",
+			data = Config.RealtorPerms
+		})
+		local PlayerData = QBCore.Functions.GetPlayerData()
+		setRealtor(PlayerData.job)
 	end
 	if (resourceName == "ps-housing") then
 		updateMenuData()
 	end
+end)
+
+
+RegisterNetEvent("QBCore:Client:OnJobUpdate", setRealtor)
+AddEventHandler('QBCore:Client:OnPlayerLoaded', function() -- Don't use this with the native method
+	updateMenuData()
+    local PlayerData = QBCore.Functions.GetPlayerData()
+	setRealtor(PlayerData.job)
 end)
 
 AddEventHandler("bl-realtor:client:updateProperties", function(data)

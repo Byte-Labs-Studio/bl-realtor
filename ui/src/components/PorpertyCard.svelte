@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { IProperty } from '@typings/type'
-	import { SHELLS } from '@store/stores'
+	import { REALTOR_GRADE, SHELLS } from '@store/stores'
 	import { fly } from 'svelte/transition'
 
 	export let selectedProperty: IProperty = null
@@ -37,6 +37,15 @@
 		<div
 			class="flex flex-row flex-grow flex-wrap flex-shrink gap-4 items-center justify-center"
 		>
+			{#if $REALTOR_GRADE !== null && property.for_sale}
+				<div
+					class="w-fit px-4 h-[3rem] bg-[color:var(--color-tertiary)] items-center justify-center flex flex-row gap-4"
+				>
+					<i class="fas fa-dollar-sign" />
+					<p>For Sale</p>
+				</div>
+			{/if}
+
 			<div
 				class="w-fit px-4 h-[3rem] bg-[color:var(--color-tertiary)] items-center justify-center flex flex-row gap-4"
 			>
@@ -48,7 +57,9 @@
 			>
 				<i class="fas fa-image" />
 				<p>
-					{$SHELLS[property.shell] ? $SHELLS[property.shell].imgs.length : 0}
+					{$SHELLS[property.shell]
+						? $SHELLS[property.shell].imgs.length
+						: 0}
 				</p>
 			</div>
 			<div
@@ -73,10 +84,8 @@
 	</div>
 </button>
 
-
 <style>
-
-    .item {
-        border: 5px solid var(--color-secondary);
-    }
+	.item {
+		border: 5px solid var(--color-secondary);
+	}
 </style>

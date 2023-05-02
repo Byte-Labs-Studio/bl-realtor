@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { IS_REALTOR, SHELLS } from '@store/stores'
+	import { CONFIG, REALTOR_GRADE, SHELLS } from '@store/stores'
 	import type { IProperty } from '@typings/type'
 	import { SendNUI } from '@utils/SendNUI'
 	import { fade } from 'svelte/transition'
@@ -44,13 +44,13 @@
 				class="w-full flex h-full flex-row items-start justify-between pt-[4rem]"
 			>
 				<div
-					class="flex flex-col justify-between h-full items-start w-full overflow-y-scroll scroll-style scroll-style-vertical"
+					class="flex flex-col justify-start max-h-[65rem] items-start w-full overflow-y-scroll scroll-style scroll-style-vertical"
 				>
 					<!-- Main Content -->
 					<Information {selectedProperty} />
 
 					<!-- Realtor Job Stuff -->
-                    {#if $IS_REALTOR}
+                    {#if $REALTOR_GRADE >= $CONFIG.manageProperty}
                         <EditOptions bind:selectedProperty />
                     {/if}
 

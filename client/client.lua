@@ -148,6 +148,8 @@ function ZoneThread(type, promise)
 
 	if type == "garage" then
 		QBCore.Functions.Notify("Best to get in a vehicle to see how the zone would look.", "error")
+		lib.notify({text="Best to get in a vehicle to see how the zone would look.", type="error"})
+
 		length = 3.0
 		width = 5.0
 	end

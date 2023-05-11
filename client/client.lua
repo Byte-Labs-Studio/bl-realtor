@@ -27,7 +27,7 @@ local function updateMenuData()
 	local data = exports["ps-housing"]:GetData()
 	Properties = data.properties
 	Apartments = data.apartments
-	print(json.encode(Apartments, {indent = true}))
+	
 	-- All seperated so we can update them individually later on
 	SendNUIMessage({
 		action = "setShells",

@@ -6,6 +6,7 @@ export const resName = writable<string>("");
 
 export const PROPERTIES = writable<any[]>([]);
 export const SHELLS = writable<any[]>([]);
+export const APARTMENTS = writable<any[]>([]);
 
 export const REALTOR_GRADE = writable<number>(null);
 
@@ -17,6 +18,7 @@ interface IConfig {
     sellProperty: number; //minimum grade to sell property | default 0
     listNewProperty: number; //minimum grade to list property | default 2
     deleteProperty: number; //minimum grade to delete property | default 2
+    setApartments: number; //minimum grade to set apartments for players | default 2
 }
 
 export const CONFIG = writable<IConfig>({
@@ -25,4 +27,5 @@ export const CONFIG = writable<IConfig>({
     sellProperty: 0,
     listNewProperty: 2,
     deleteProperty: 2,
+    setApartments: 2,
 });

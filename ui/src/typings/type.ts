@@ -34,3 +34,12 @@ export interface IProperty {
     door_data: door;
     garage_data: coords | null;
 }
+
+export interface IApartment {
+    apartmentData: {
+        label: string;
+        door: door;
+        imgs: img[];
+    }
+    apartments: string[];
+}

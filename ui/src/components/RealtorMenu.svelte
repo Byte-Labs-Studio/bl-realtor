@@ -3,6 +3,7 @@
 	import type { ITab } from '@typings/type'
 	import Properties from './Properties.svelte'
 	import { TEMP_HIDE } from '@store/stores'
+	import Apartments from './Apartments.svelte'
 
 	let AvailableTabs: ITab[] = [
 		{
@@ -11,9 +12,9 @@
 			component: Properties,
 		},
 		{
-			name: 'Job',
-			icon: 'fas fa-briefcase',
-			component: null,
+			name: 'Apartments',
+			icon: 'fas fa-building',
+			component: Apartments,
 		},
 	]
 

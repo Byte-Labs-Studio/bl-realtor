@@ -27,7 +27,7 @@ local function updateMenuData()
 	local data = exports["ps-housing"]:GetData()
 	Properties = data.properties
 	Apartments = data.apartments
-
+	print(json.encode(Apartments, {indent = true}))
 	-- All seperated so we can update them individually later on
 	SendNUIMessage({
 		action = "setShells",
@@ -123,6 +123,17 @@ RegisterNUICallback("updatePropertyData", function(data, cb)
 
 	TriggerServerEvent("bl-realtor:server:updateProperty", changeType, property_id, newData)
 	cb("ok")
+end)
+
+RegisterNUICallback("addTenantToApartment", function(data, cb)
+	TriggerServerEvent("bl-realtor:server:addTenantToApartment", data)
+	cb("ok")
+
+end)
+
+RegisterNUICallback("getNames", function(data, cb)
+	local names = lib.callback.await("bl-realtor:server:getNames", data)
+	cb(names)
 end)
 
 RegisterNUICallback("startZonePlacement", function (data, cb)

@@ -29,3 +29,34 @@ RegisterNetEvent("bl-realtor:server:registerProperty", function(data)
     -- Register property
     TriggerEvent("ps-housing:server:registerProperty", data)
 end)
+
+RegisterNetEvent("bl-realtor:server:addTenantToApartment", function(data)
+    -- Job check
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+    local PlayerData = Player.PlayerData
+    if not PlayerData.job.name == "realtor" then return false end
+
+    data.realtorSrc = src
+    -- Add tenant
+    TriggerEvent("ps-housing:server:addTenantToApartment", data)
+end)
+
+lib.callback.register("bl-realtor:server:getNames", function (source, data)
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+    local PlayerData = Player.PlayerData
+    if not PlayerData.job.name == "realtor" then return false end
+
+    local names = {}
+    for i = 1, #data do
+        local target = QBCore.Functions.GetPlayerByCitizenId(data[i])
+        if target then
+            names[#names+1] = target.PlayerData.charinfo.firstname .. " " .. target.PlayerData.charinfo.lastname
+        else
+            names[#names+1] = "Unknown"
+        end
+    end
+    
+    return names
+end)

@@ -37,4 +37,5 @@ Config.RealtorPerms = {
     sellProperty = 0, --minimum grade to sell property | default 0
     listNewProperty = 2, --minimum grade to list property | default 2
     deleteProperty = 2, --minimum grade to delete property | default 2
+    setApartments = 2, --minimum grade to set apartments for players | default 2
 }

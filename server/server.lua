@@ -12,6 +12,7 @@ RegisterNetEvent("bl-realtor:server:updateProperty", function(type, property_id,
     local Player = QBCore.Functions.GetPlayer(src)
     local PlayerData = Player.PlayerData
     if not PlayerData.job.name == "realtor" then return false end
+
     data.realtorSrc = src
     -- Update property
     TriggerEvent("ps-housing:server:updateProperty", type, property_id, data)
@@ -23,6 +24,7 @@ RegisterNetEvent("bl-realtor:server:registerProperty", function(data)
     local Player = QBCore.Functions.GetPlayer(src)
     local PlayerData = Player.PlayerData
     if not PlayerData.job.name == "realtor" then return false end
+
     data.realtorSrc = src
     -- Register property
     TriggerEvent("ps-housing:server:registerProperty", data)

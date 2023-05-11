@@ -1,18 +1,20 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
+local Shells = {}
+local Properties = {}
+local Apartments = {}
+
+local isRealtor = false
+local uiopen = false
+
 RegisterNetEvent('QBCore:Server:UpdateObject', function()
 	if source ~= '' then return false end
 	QBCore = exports['qb-core']:GetCoreObject()
 end)
 
-local Shells = {}
-local Properties = {}
-
-local uiopen = false
 local function toggleUI(bool)
 	uiopen = bool
 	SetNuiFocus(bool, bool)
-
 	SendNUIMessage({
 		action = "setVisible",
 		data = bool
@@ -21,26 +23,37 @@ end
 
 local function updateMenuData()
 	Shells = exports["ps-housing"]:GetShells()
-	Properties = exports["ps-housing"]:GetProperties()
+
+	local data = exports["ps-housing"]:GetData()
+	Properties = data.properties
+	Apartments = data.apartments
+
+	-- All seperated so we can update them individually later on
 	SendNUIMessage({
 		action = "setShells",
 		data = Shells
 	})
+
 	SendNUIMessage({
 		action = "setProperties",
 		data = Properties
 	})
+
+	SendNUIMessage({
+		action = "setApartments",
+		data = Apartments
+	})
 end
 
 local function setRealtor(jobInfo)
-	print("setRealtor")
 	if jobInfo.name == "realtor" then
-		print("setRealtorGrade", jobInfo.grade.level)
+		isRealtor = true
 		SendNUIMessage({
 			action = "setRealtorGrade",
 			data = jobInfo.grade.level
 		})
 	else 
+		isRealtor = false
 		SendNUIMessage({
 			action = "setRealtorGrade",
 			data = nil
@@ -48,47 +61,56 @@ local function setRealtor(jobInfo)
 	end
 end
 
-AddEventHandler("onResourceStart", function(resourceName)
-	if (GetCurrentResourceName() == resourceName) then
-		Wait(2000)
-		updateMenuData()
-		SendNUIMessage({
-			action = "setConfig",
-			data = Config.RealtorPerms
-		})
-		local PlayerData = QBCore.Functions.GetPlayerData()
-		setRealtor(PlayerData.job)
-	end
-	if (resourceName == "ps-housing") then
-		updateMenuData()
-	end
-end)
-
-
 RegisterNetEvent("QBCore:Client:OnJobUpdate", setRealtor)
+
 AddEventHandler('QBCore:Client:OnPlayerLoaded', function() -- Don't use this with the native method
 	updateMenuData()
     local PlayerData = QBCore.Functions.GetPlayerData()
 	setRealtor(PlayerData.job)
 end)
 
+AddEventHandler("onResourceStart", function(resourceName)
+	if (GetCurrentResourceName() == resourceName) then
+
+		Wait(2000)
+
+		updateMenuData()
+		SendNUIMessage({
+			action = "setConfig",
+			data = Config.RealtorPerms
+		})
+
+		local PlayerData = QBCore.Functions.GetPlayerData()
+		setRealtor(PlayerData.job)
+	end
+
+	if (resourceName == "ps-housing") then
+		updateMenuData()
+	end
+end)
+
+-- I was going to make it only going to run the 2 handler if they were in the menu or realtor but I think its good to update anyway
 AddEventHandler("bl-realtor:client:updateProperties", function(data)
 	Properties = data
-	if not uiopen then return end
 	SendNUIMessage({
 		action = "setProperties",
 		data = Properties
 	})
 end)
 
-RegisterCommand("real", function()
+AddEventHandler("bl-realtor:client:updateApartments", function(data)
+	Apartments = data
+	SendNUIMessage({
+		action = "setApartments",
+		data = Apartments
+	})
+end)
+
+RegisterCommand("housing", function()
 	toggleUI(not uiopen)
 end, false)
 
-RegisterNUICallback("hideUI", function()
-    toggleUI(false)
-end)
-
+-- Callbacks
 RegisterNUICallback("setWaypoint", function (data, cb)
 	SetNewWaypoint(data.x, data.y)
 	cb("ok")
@@ -98,19 +120,23 @@ RegisterNUICallback("updatePropertyData", function(data, cb)
 	local property_id = data.property_id
 	local newData = data.data
 	local changeType = data.type
+
 	TriggerServerEvent("bl-realtor:server:updateProperty", changeType, property_id, newData)
 	cb("ok")
 end)
 
 RegisterNUICallback("startZonePlacement", function (data, cb)
-	cb("ok")
+	cb("ok") -- too long for promise
+	SetNuiFocus(false, false)
+
 	local type = data.type
 	local property_id = data.property_id
-	SetNuiFocus(false, false)
+
 	local newDataPromise = promise.new()
 	ZoneThread(type, newDataPromise)
 	local newData = Citizen.Await(newDataPromise)
 	if not newData then return end
+
 	if type == "door" then
 		type = "UpdateDoor"
 	elseif type == "garage" then
@@ -125,6 +151,7 @@ RegisterNUICallback("startZonePlacement", function (data, cb)
 			}
 		})
 	end
+
 	TriggerServerEvent("bl-realtor:server:updateProperty", type, property_id, newData)
 end)
 
@@ -137,9 +164,10 @@ local function setHide(bool)
 	SetNuiFocus(not bool, not bool)
 end
 
-
+-- For the zone placement. At some point I will make a proper system but its not a big deal, it works.
 function ZoneThread(type, promise)
 	local findingZone = true
+
 	-- default for door
 	local length = 2.0
     local width = 1.0
@@ -147,21 +175,19 @@ function ZoneThread(type, promise)
     local height = 2.5
 
 	if type == "garage" then
-		QBCore.Functions.Notify("Best to get in a vehicle to see how the zone would look.", "error")
 		lib.notify({text="Best to get in a vehicle to see how the zone would look.", type="error"})
-
+		
 		length = 3.0
 		width = 5.0
 	end
 
 	CreateThread(function()
 		while findingZone do
-			local ped = PlayerPedId()
-			local coords = GetEntityCoords(ped)
+			local coords = GetEntityCoords(cache.ped)
 			local x = coords.x
 			local y = coords.y
 			local z = coords.z
-			local heading = GetEntityHeading(ped)
+			local heading = GetEntityHeading(cache.ped)
 			DrawMarker(43, x, y, z + zoff, 0.0, 0.0, 0.0, 0.0, 180.0, -heading, length, width, height, 255, 0, 0, 50, false, false, 2, nil, nil, false)	
 			if IsDisabledControlJustPressed(0, 38) then -- E
 				findingZone = false
@@ -185,7 +211,6 @@ function ZoneThread(type, promise)
 			DisableControlAction(0, 104, true) -- H 
 		end
 	end)
-
 end
 
 

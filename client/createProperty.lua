@@ -52,6 +52,10 @@ CreateProperty = {
             })
         elseif type == "garage" then
             self.garage_data = zoneData
+
+            self.garage_data.length = 3.0
+            self.garage_data.width = 5.0
+
             SendNUIMessage({
                 action = "createdGarage",
                 data = true

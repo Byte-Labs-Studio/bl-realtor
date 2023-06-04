@@ -21,6 +21,10 @@ local function toggleUI(bool)
 	})
 end
 
+RegisterNUICallback("hideUI", function()
+	toggleUI(false)
+end)
+
 local function updateMenuData()
 	Shells = exports["ps-housing"]:GetShells()
 
@@ -132,7 +136,8 @@ RegisterNUICallback("addTenantToApartment", function(data, cb)
 end)
 
 RegisterNUICallback("getNames", function(data, cb)
-	local names = lib.callback.await("bl-realtor:server:getNames", data)
+	if not data then return end
+	local names = lib.callback.await("bl-realtor:server:getNames",source, data)
 	cb(names)
 end)
 
@@ -159,6 +164,8 @@ RegisterNUICallback("startZonePlacement", function (data, cb)
 				y = newData.y,
 				z = newData.z,
 				h = newData.heading,
+				length = 3.0,
+				width = 5.0,
 			}
 		})
 	end

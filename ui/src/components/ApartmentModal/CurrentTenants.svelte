@@ -16,7 +16,10 @@
         const  apartmentName: string = selectedApartment.apartmentData.label as string
         // search PROPERTIES for all the properties that have the same apartment name and return the owner
         const arrCitizenids = $PROPERTIES.filter((property) => property.apartment === apartmentName).map((property) => property.owner)
-
+        if (arrCitizenids.length === 0 || arrCitizenids[0] === undefined) {
+            tenantsResult = ['No tenants']
+            return
+        }
         SendNUI('getNames', arrCitizenids).then((names: string[]) => {
             tenants = names
         })
@@ -24,9 +27,9 @@
 
     $: {
         if (searchTerm.length > 0) {
-            tenantsResult = tenants.filter((tenant) => tenant.toLowerCase().includes(searchTerm.toLowerCase()))
+            tenantsResult = tenants.filter((tenant) => tenant.toLowerCase().includes(searchTerm.toLowerCase())) || ['No tenants']
         } else {
-            tenantsResult = tenants
+            tenantsResult = tenants || ['No tenants']
         }
     }
 </script>

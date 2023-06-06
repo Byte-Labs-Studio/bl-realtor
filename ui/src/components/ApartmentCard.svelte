@@ -7,8 +7,6 @@
 
 	// cbf with typescript rn
 	let apartmentData: any = apartment.apartmentData
-
-console.log(apartment)
 </script>
 
 <button

@@ -5,7 +5,7 @@
 	import { fly } from 'svelte/transition'
 	import PropertyModal from './PropertyModal.svelte'
 	import CreateCard from './CreateCard.svelte'
-	import PorpertyCard from './PorpertyCard.svelte'
+	import PropertyCard from './PropertyCard.svelte'
 	import { CONFIG, REALTOR_GRADE } from '@store/stores'
 
 	let Properties: IProperty[] = []
@@ -32,6 +32,7 @@
 	})
 
 	let isCreating: boolean = false
+
 </script>
 
 {#if selectedProperty}
@@ -68,8 +69,12 @@
 		bind:this={El}
 		class="w-full h-full relative flex py-[5rem] pb-[8rem] flex-row flex-grow flex-shrink gap-4 flex-wrap items-start justify-center overflow-y-scroll scroll-style scroll-style-vertical"
 	>
-		{#each Properties as property, i}
-			<PorpertyCard bind:selectedProperty {property} />
+	{#if Properties && Properties.length > 0}
+		{#each (Properties) as property, i}
+			<PropertyCard bind:selectedProperty {property} />
 		{/each}
+	{:else}
+		<p class="text-2xl font-bold">No Properties Found</p>
+	{/if}
 	</div>
 </div>

@@ -26,7 +26,6 @@ RegisterNetEvent("bl-realtor:server:registerProperty", function(data)
     if not PlayerData.job.name == "realtor" then return false end
 
     data.realtorSrc = src
-    print("Registering property", json.encode(data, {indent = true}))
     -- Register property
     TriggerEvent("ps-housing:server:registerProperty", data)
 end)

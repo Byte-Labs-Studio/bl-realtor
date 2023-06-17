@@ -17,6 +17,7 @@
 
     function filter() {
         let properties: IProperty[] = $PROPERTIES
+        if (properties.length < 1) return
         properties = filterForSale(properties)
         properties = filterGarage(properties)
         properties = filterPriceSort(properties)

@@ -2,7 +2,7 @@
 	import Tabs from './Tabs.svelte'
 	import type { ITab } from '@typings/type'
 	import Properties from './Properties.svelte'
-	import { TEMP_HIDE } from '@store/stores'
+	import { REALTOR_GRADE, TEMP_HIDE, CONFIG } from '@store/stores'
 	import Apartments from './Apartments.svelte'
 
 	let AvailableTabs: ITab[] = [
@@ -11,12 +11,24 @@
 			icon: 'fas fa-home',
 			component: Properties,
 		},
-		{
-			name: 'Apartments',
-			icon: 'fas fa-building',
-			component: Apartments,
-		},
+
 	]
+
+	// {
+	// 		name: 'Apartments',
+	// 		icon: 'fas fa-building',
+	// 		component: Apartments,
+	// 	},
+
+	REALTOR_GRADE.subscribe((value) => {
+		if (value >= $CONFIG.setApartments) {
+			AvailableTabs.push({
+				name: 'Apartments',
+				icon: 'fas fa-building',
+				component: Apartments,
+			})
+		}
+	})
 
 	let selectedTab: ITab = AvailableTabs[0]
 </script>

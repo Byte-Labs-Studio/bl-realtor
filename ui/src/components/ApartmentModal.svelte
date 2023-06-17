@@ -44,11 +44,8 @@
                     <!-- I dont know what else to put in the information section. If you have any idea pr or issue -->
                     <!-- Information -->
                     <Information {selectedApartment} />
-
-                    <!-- {#if $REALTOR_GRADE >= $CONFIG.setApartments} -->
                     <!-- Assign new tenant -->
                     <EditOptions {selectedApartment} />
-                    <!-- {/if} -->
 
 				</div>
                 <CurrentTenants {selectedApartment} />

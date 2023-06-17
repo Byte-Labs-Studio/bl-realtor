@@ -4,14 +4,14 @@ RegisterNetEvent('QBCore:Server:UpdateObject', function()
 	if source ~= '' then return false end
 	QBCore = exports['qb-core']:GetCoreObject()
 end)
-QBCore.Functions.AddJob('realtor', Config.Job)
+QBCore.Functions.AddJob(Config.Job.label, Config.Job)
 
 RegisterNetEvent("bl-realtor:server:updateProperty", function(type, property_id, data)
     -- Job check
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local PlayerData = Player.PlayerData
-    if not PlayerData.job.name == "realtor" then return false end
+    if not PlayerData.job.name == Config.Job.label then return false end
 
     data.realtorSrc = src
     -- Update property
@@ -23,7 +23,7 @@ RegisterNetEvent("bl-realtor:server:registerProperty", function(data)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local PlayerData = Player.PlayerData
-    if not PlayerData.job.name == "realtor" then return false end
+    if not PlayerData.job.name == Config.Job.label then return false end
 
     data.realtorSrc = src
     -- Register property
@@ -35,7 +35,7 @@ RegisterNetEvent("bl-realtor:server:addTenantToApartment", function(data)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local PlayerData = Player.PlayerData
-    if not PlayerData.job.name == "realtor" then return false end
+    if not PlayerData.job.name == Config.Job.label then return false end
 
     data.realtorSrc = src
     -- Add tenant
@@ -46,7 +46,7 @@ lib.callback.register("bl-realtor:server:getNames", function (source, data)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local PlayerData = Player.PlayerData
-    if not PlayerData.job.name == "realtor" then return false end
+    if not PlayerData.job.name == Config.Job.label then return false end
     
     local names = {}
     for i = 1, #data do

@@ -70,7 +70,7 @@
 		class="w-full h-full relative flex py-[5rem] pb-[8rem] flex-row flex-grow flex-shrink gap-4 flex-wrap items-start justify-center overflow-y-scroll scroll-style scroll-style-vertical"
 	>
 	{#if Properties && Properties.length > 0}
-		{#each (Properties) as property, i}
+		{#each Properties as property, i}
 			<PropertyCard bind:selectedProperty {property} />
 		{/each}
 	{:else}

@@ -75,7 +75,7 @@
 				<i class="fas fa-warehouse" />
 				<p>
 					{property.garage_data
-						? property.garage_data[0]
+						? Object.keys(property.garage_data).length > 0
 							? 'Yes'
 							: 'No'
 						: 'No'}

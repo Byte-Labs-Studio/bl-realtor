@@ -15,6 +15,12 @@
         }
     }
 
+    PROPERTIES.subscribe((value) => {
+        if (value) {
+            filter()
+        }
+    })
+
     function filter() {
         let properties: IProperty[] = $PROPERTIES
         if (properties.length < 1) return

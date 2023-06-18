@@ -2,9 +2,10 @@ local QBCore = exports['qb-core']:GetCoreObject()
 
 RegisterNetEvent('QBCore:Server:UpdateObject', function()
 	if source ~= '' then return false end
-	QBCore = exports['qb-core']:GetCoreObject()
+	QBCore = exports['qb-core']:GetCoreObject() 
 end)
-QBCore.Functions.AddJob(Config.Job.label, Config.Job)
+
+QBCore.Functions.AddJob(Config.Job.label:lower(), Config.Job)
 
 RegisterNetEvent("bl-realtor:server:updateProperty", function(type, property_id, data)
     -- Job check

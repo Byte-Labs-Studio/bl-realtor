@@ -4,8 +4,7 @@ local Shells = {}
 local Properties = {}
 local Apartments = {}
 
-local isRealtor = false
-local uiopen = false
+local UIOpen = false
 
 RegisterNetEvent('QBCore:Server:UpdateObject', function()
 	if source ~= '' then return false end
@@ -13,7 +12,7 @@ RegisterNetEvent('QBCore:Server:UpdateObject', function()
 end)
 
 local function toggleUI(bool)
-	uiopen = bool
+	UIOpen = bool
 	SetNuiFocus(bool, bool)
 	SendNUIMessage({
 		action = "setVisible",
@@ -51,13 +50,11 @@ end
 
 local function setRealtor(jobInfo)
 	if jobInfo.name == "realtor" then
-		isRealtor = true
 		SendNUIMessage({
 			action = "setRealtorGrade",
 			data = jobInfo.grade.level
 		})
 	else 
-		isRealtor = false
 		SendNUIMessage({
 			action = "setRealtorGrade",
 			data = nil
@@ -111,7 +108,7 @@ AddEventHandler("bl-realtor:client:updateApartments", function(data)
 end)
 
 RegisterCommand("housing", function()
-	toggleUI(not uiopen)
+	toggleUI(not UIOpen)
 end, false)
 
 -- Callbacks

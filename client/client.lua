@@ -4,6 +4,12 @@ local Shells = {}
 local Properties = {}
 local Apartments = {}
 
+local showBlipsForSale = false
+local showBlipsOwned = false
+
+local blipsForSale = {}
+local blipsOwned = {}
+
 local UIOpen = false
 
 RegisterNetEvent('QBCore:Server:UpdateObject', function()
@@ -93,6 +99,14 @@ end)
 -- I was going to make it only going to run the 2 handler if they were in the menu or realtor but I think its good to update anyway
 AddEventHandler("bl-realtor:client:updateProperties", function(data)
 	Properties = data
+	if showBlipsForSale then
+		CreateBlipsOnMap("forSale")
+	end
+
+	if showBlipsOwned then
+		CreateBlipsOnMap("owned")
+	end
+
 	SendNUIMessage({
 		action = "setProperties",
 		data = Properties
@@ -228,5 +242,73 @@ function ZoneThread(type, promise)
 	end)
 end
 
+RegisterNUICallback("getBlipBooleans", function (_, cb)
+	cb({
+		showBlipsForSale = showBlipsForSale,
+		showBlipsOwned = showBlipsOwned,
+	})
+end)
 
+RegisterNUICallback("showBlipsForSale", function (bool, cb)
+	if bool then
+		showBlipsForSale = true
+		CreateBlipsOnMap("forSale")
+	else
+		showBlipsForSale = false
+		RemoveBlipsOnMap("forSale")
+	end
+	cb(1)
+end)
 
+RegisterNUICallback("showBlipsOwned", function (bool, cb)
+	if bool then
+		showBlipsOwned = true
+		CreateBlipsOnMap("owned")
+	else
+		showBlipsOwned = false
+		RemoveBlipsOnMap("owned")
+	end
+	cb(1)
+end)
+
+function CreateBlipsOnMap(type)
+	if type ~= "forSale" and type ~= "owned" then return end
+	local blipsTable = type == "forSale" and blipsForSale or blipsOwned
+	local blipName = type == "forSale" and "Property For Sale" or "Owned Property"
+
+	RemoveBlipsOnMap(type)
+
+	for k, v in pairs(Properties) do
+		if (v.for_sale and not v.apartment) or 
+		   (v.owner and not v.for_sale) then
+			local coords = v.door_data
+			local blip = CreateBlip(coords, blipName)
+			blipsTable[#blipsTable + 1] = blip
+		end
+	end
+end
+
+function CreateBlip(coords, blipName)
+	local blip = AddBlipForCoord(coords.x, coords.y, coords.z)
+	SetBlipSprite(blip, 375)
+	SetBlipDisplay(blip, 4)
+	SetBlipScale(blip, 0.7)
+	SetBlipColour(blip, 2)
+	SetBlipAsShortRange(blip, true)
+	BeginTextCommandSetBlipName("STRING")
+	AddTextComponentString(blipName)
+	EndTextCommandSetBlipName(blip)
+	return blip
+end
+
+function RemoveBlipsOnMap(type)
+	if type == "forSale" then
+		for k, v in pairs(blipsForSale) do
+			RemoveBlip(v)
+		end
+	elseif type == "owned" then
+		for k, v in pairs(blipsOwned) do
+			RemoveBlip(v)
+		end
+	end
+end

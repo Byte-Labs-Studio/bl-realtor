@@ -24,12 +24,7 @@ Config.Job = {
     }
 }
 
-Config.Commisions = {
-    ['0'] = 0.05, -- 5% commision for each sale
-    ['1'] = 0.10,
-    ['2'] = 0.15,
-    ['3'] = 0.20,
-}
+--Commisions is handled in ps-housing config.
 
 Config.RealtorPerms = {
     manageProperty = 1, --minimum grade to manage property | default 1

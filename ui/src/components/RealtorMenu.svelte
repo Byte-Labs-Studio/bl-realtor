@@ -41,4 +41,5 @@
 		<svelte:component this={selectedTab.component} />
 	</div>
 	<Tabs bind:selectedTab {AvailableTabs} />
+
 </div>

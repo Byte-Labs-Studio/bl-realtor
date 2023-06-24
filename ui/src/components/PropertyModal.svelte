@@ -35,15 +35,16 @@
 					<i class="fas fa-times" />
 				</button>
 			</h1>
+
 			<h2 class="text-3xl text-center font-bold pt-4">
 				{selectedProperty.label}
 			</h2>
 
 			<div
-				class="w-full flex h-full flex-row items-start justify-between pt-[4rem]"
+				class="w-full flex h-full flex-row items-start justify-between pt-[4rem] overflow-y-hidden scroll-style scroll-style-vertical"
 			>
 				<div
-					class="flex flex-col justify-start h-full items-start w-full overflow-y-scroll scroll-style scroll-style-vertical"
+					class="flex flex-col justify-start h-full items-start w-full "
 				>
 					<!-- Main Content -->
 					<Information {selectedProperty} />

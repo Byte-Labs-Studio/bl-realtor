@@ -5,7 +5,6 @@
 
 	export let selectedProperty: IProperty = null
 	export let property: IProperty = null
-
 </script>
 
 <button
@@ -46,13 +45,16 @@
 					<p>For Sale</p>
 				</div>
 			{/if}
+			
+			{#if property.price}
+				<div
+					class="w-fit px-4 h-[3rem] bg-[color:var(--color-tertiary)] items-center justify-center flex flex-row gap-4"
+				>
+					<i class="fas fa-dollar-sign" />
+					<p>{property.price?.toLocaleString()}</p>
+				</div>
+			{/if}
 
-			<div
-				class="w-fit px-4 h-[3rem] bg-[color:var(--color-tertiary)] items-center justify-center flex flex-row gap-4"
-			>
-				<i class="fas fa-dollar-sign" />
-				<p>{property.price.toLocaleString()}</p>
-			</div>
 			<div
 				class="w-fit px-4 h-[3rem] bg-[color:var(--color-tertiary)] items-center justify-center flex flex-row gap-4"
 			>

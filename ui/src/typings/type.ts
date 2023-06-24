@@ -33,6 +33,7 @@ export interface IProperty {
     price: number;
     door_data: door;
     garage_data: coords | null;
+    apartment: string;
 }
 
 export interface IApartment {

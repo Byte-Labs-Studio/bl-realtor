@@ -49,7 +49,7 @@
 
 {#if selectedProperty !== null}
 	<div
-		class="flex flex-col gap-4 max-h-[40%] overflow-y-scroll scroll-style scroll-style-vertical w-full"
+		class="flex flex-col gap-4 h-full overflow-y-scroll scroll-style scroll-style-vertical w-full"
 	>
 		<h1 class="text-3xl font-bold mb-2">Manage Property</h1>
 		{#if $REALTOR_GRADE >= $CONFIG.changePropertyForSale}

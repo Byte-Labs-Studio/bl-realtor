@@ -7,7 +7,7 @@
 </script>
 
 {#if selectedProperty}
-	<div class="flex flex-col gap-8 h-1/2 mb-4">
+	<div class="flex flex-col gap-8 h-fit mb-4">
 		<div class="flex flex-col gap-1">
 			<p class="text-3xl font-bold">Description</p>
 			<p class="text-2xl">{selectedProperty.description}</p>

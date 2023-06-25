@@ -278,29 +278,11 @@ function CreateBlipsOnMap(type)
 
 	RemoveBlipsOnMap(type)
 	for k, v in pairs(Properties) do
-
-		-- if not v.apartment then
-		-- 	local forSale = v.for_sale
-		-- 	local owned = (v.owner and not forSale)
-	
-		-- 	local coords = v.door_data
-		-- 	local blipName = '('..nameType..')' .. ' ' .. v.label .. ' - ' .. v.property_id
-		-- 	if (forSale and not owned) or (forSale and owned) then
-		-- 		local blip = CreateBlip(coords, blipName)
-		-- 		blipsTable[#blipsTable + 1] = blip
-		-- 	elseif owned and not forSale then
-		-- 		-- Show only owned properties
-		-- 		-- You can add your desired behavior for owned properties here
-		-- 		local blip = CreateBlip(coords, blipName)
-		-- 		blipsTable[#blipsTable + 1] = blip
-		-- 	end
-		-- end
-
 		if not v.apartment then
 			local isForSale = v.for_sale
 			local owner = v.owner
 			print(isForSale, owner)
-			
+
 			local coords = v.door_data
 			local blipName = '('..nameType..')' .. ' ' .. v.label .. ' - ' .. v.property_id
 			if type == "forSale" and isForSale then
@@ -312,7 +294,6 @@ function CreateBlipsOnMap(type)
 			end
 		end
 	end
-	
 end
 
 function CreateBlip(coords, blipName)

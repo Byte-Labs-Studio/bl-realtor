@@ -12,6 +12,7 @@
 	on:click={() => (selectedProperty = property)}
 	in:fly={{ y: 10, duration: 250 }}
 >
+
 	{#if property.extra_imgs[0] ? property.extra_imgs[0].url : $SHELLS[property.shell].imgs[0].url}
 		<img
 			src={property.extra_imgs[0]
@@ -27,6 +28,9 @@
 			class="w-full h-[20rem] object-cover object-center"
 		/>
 	{/if}
+
+
+
 	<div
 		class="flex flex-col flex-grow flex-shrink gap-4 p-4 justify-center w-full"
 	>
@@ -37,6 +41,10 @@
 		<div
 			class="flex flex-row flex-grow flex-wrap flex-shrink gap-4 items-center justify-center"
 		>
+		<div class="w-fit px-4 h-[3rem] bg-[color:var(--color-tertiary)] grid place-content-center z-40 top-0 left-0">
+			<p class="text-xl">{property.property_id}</p>
+		</div>
+		
 			{#if $REALTOR_GRADE !== null && property.for_sale}
 				<div
 					class="w-fit px-4 h-[3rem] bg-[color:var(--color-tertiary)] items-center justify-center flex flex-row gap-4"

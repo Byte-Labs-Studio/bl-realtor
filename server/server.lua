@@ -51,7 +51,7 @@ lib.callback.register("bl-realtor:server:getNames", function (source, data)
     
     local names = {}
     for i = 1, #data do
-        local target = QBCore.Functions.GetPlayerByCitizenId(data[i]) or QBCore.Functions.GetOfflinePlayer(data[i])
+        local target = QBCore.Functions.GetPlayerByCitizenId(data[i]) or QBCore.Functions.GetOfflinePlayerByCitizenId(data[i])
         if target then
             names[#names+1] = target.PlayerData.charinfo.firstname .. " " .. target.PlayerData.charinfo.lastname
         else

@@ -224,7 +224,6 @@ function CreateBlipsOnMap(type)
 		if not data.apartment then
 			local isForSale = data.for_sale
 			local owner = data.owner
-			print(isForSale, owner)
 
 			local coords = data.door_data
 			local blipName = '('..nameType..')' .. ' ' .. data.label .. ' - ' .. data.property_id

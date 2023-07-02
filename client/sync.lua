@@ -39,7 +39,6 @@ end)
 
 AddEventHandler('ps-housing:client:updatedProperty', function(property_id)
 
-	print("Updated property: " .. property_id)
 	local property = exports['ps-housing']:GetProperty(property_id)
 
 	for i = 1, #PropertiesTable do
@@ -59,7 +58,6 @@ end)
 -- both have to be updated
 AddEventHandler("ps-housing:client:updateApartment", function(old, new)
 
-	print("Updated apartment: " .. old .. " to " .. new)
 	local oldApt = PSHousing:GetApartment(old)
 
 	SendNUIMessage({

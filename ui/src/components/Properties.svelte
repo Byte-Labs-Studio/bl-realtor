@@ -33,7 +33,6 @@
 
 	let isCreating: boolean = false
 
-	$: console.log(Properties.length)
 </script>
 
 {#if selectedProperty}

@@ -21,8 +21,6 @@
 	// 	},
 
 	REALTOR_GRADE.subscribe((value) => {
-		console.log(value)
-		console.log($CONFIG.setApartments)
 		if (value >= $CONFIG.setApartments) {
 			AvailableTabs.push({
 				name: 'Apartments',

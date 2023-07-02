@@ -6,7 +6,6 @@
 
 	let selectedApartment: IApartment  = null
 
-	$: console.log(selectedApartment)
 </script>
 
 {#if selectedApartment}

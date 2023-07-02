@@ -13,7 +13,6 @@ visibility.subscribe((visible: boolean) => {
 });
 
 ReceiveNUI<boolean>('setVisible', (visible: boolean) => {
-  console.log('setVisible', visible);
   visibility.set(visible);
 });
 

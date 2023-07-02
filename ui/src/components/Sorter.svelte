@@ -3,7 +3,7 @@
 	import type { IProperty } from '@typings/type'
 	import { fly } from 'svelte/transition'
 
-	export let Properties: IProperty[] = $PROPERTIES
+	export let Properties: IProperty[] = []
 	let filterSale: boolean = true
 	let lowToHigh: boolean = true
 	let searchTerm: string = ''
@@ -16,8 +16,7 @@
 			lowToHigh ||
 			onlyGarage ||
 			filterSale ||
-            includeApartments ||
-			$PROPERTIES
+			includeApartments
 		) {
 			filter()
 		}
@@ -30,13 +29,16 @@
 	})
 
 	function filter() {
-		let properties: IProperty[] = $PROPERTIES
-		if (properties.length < 1) return
+		Properties = []
+
+		setTimeout(() => {
+			let properties: IProperty[] = $PROPERTIES
 		properties = filterForSale(properties)
 		properties = filterGarage(properties)
 		properties = filterPriceSort(properties)
 		properties = filterSearch(properties)
 		Properties = filterApartment(properties)
+		}, 1)
 	}
 
 	function filterApartment(properties: IProperty[]) {
@@ -141,23 +143,26 @@
 		</div>
 	</button>
 
-	<button
-		class="flex flex-row items-center gap-4 px-4"
-		style="background-color: var(--color-{includeApartments
-			? 'accent'
-			: 'secondary'});"
-		on:click={() => (includeApartments = !includeApartments)}
-	>
-		<div class="grid place-items-center w-fit">
-			<p class="text-xl flex flex-row gap-5 items-center justify-center">
-                <i class="fas fa-building" />
-				{includeApartments ? 'Include Apartments' : 'Only Houses'}
-			</p>
-		</div>
-	</button>
+	{#if $REALTOR_GRADE >= 0}
+		<button
+			class="flex flex-row items-center gap-4 px-4"
+			style="background-color: var(--color-{includeApartments
+				? 'accent'
+				: 'secondary'});"
+			on:click={() => (includeApartments = !includeApartments)}
+		>
+			<div class="grid place-items-center w-fit">
+				<p
+					class="text-xl flex flex-row gap-5 items-center justify-center"
+				>
+					<i class="fas fa-building" />
+					{includeApartments ? 'Include Apartments' : 'Only Houses'}
+				</p>
+			</div>
+		</button>
 
-	<!-- For Sale -->
-	{#if $REALTOR_GRADE !== null}
+		<!-- For Sale -->
+
 		<button
 			class="flex flex-row items-center gap-4 px-4"
 			style="background-color: var(--color-{!filterSale

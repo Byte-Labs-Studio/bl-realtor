@@ -14,7 +14,6 @@ ui_page 'html/index.html'
 shared_script {
   '@ox_lib/init.lua',
   "shared/**",
-
 }
 
 server_script {

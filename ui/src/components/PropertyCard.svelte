@@ -45,7 +45,7 @@
 			<p class="text-xl">{property.property_id}</p>
 		</div>
 		
-			{#if $REALTOR_GRADE !== null && property.for_sale}
+			{#if $REALTOR_GRADE >= 0 && property.for_sale}
 				<div
 					class="w-fit px-4 h-[3rem] bg-[color:var(--color-tertiary)] items-center justify-center flex flex-row gap-4"
 				>

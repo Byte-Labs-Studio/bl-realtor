@@ -2,8 +2,6 @@
 	import type { IApartment } from "@typings/type"
     import { SendNUI } from "@utils/SendNUI"
 
-
-
     export let selectedApartment: IApartment = null
 
 
@@ -34,6 +32,7 @@
             on:click={() => {
                 SendNUI('addTenantToApartment', {apartment: selectedApartment.apartmentData.label, targetSrc: tempSrc})
                 areYouSure = false
+                selectedApartment = null
             }}
             >Yes</button>
             <button class="w-fit px-4 py-2 bg-[color:var(--color-tertiary)]"

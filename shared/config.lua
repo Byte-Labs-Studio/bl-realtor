@@ -1,4 +1,4 @@
-Config = {}
+Config = Config or {}
 
 Config.Job = {
     label = 'Realtor',

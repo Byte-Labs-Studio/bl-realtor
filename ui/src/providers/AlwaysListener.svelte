@@ -37,11 +37,30 @@
 	})
 
 	ReceiveNUI('setProperties', (data: any) => {
+		$PROPERTIES = null
 		$PROPERTIES = data
 	})
 
+	ReceiveNUI('updateProperty', (data: any) => {
+		const property_id = data.property_id
+		const index = $PROPERTIES.findIndex((p: any) => p.property_id === property_id)
+
+		if (index !== -1) {
+			$PROPERTIES[index] = data
+		}
+	})
+
 	ReceiveNUI('setApartments', (data: any) => {
+		$APARTMENTS = null
 		$APARTMENTS = data
+	})
+
+	ReceiveNUI('updateApartment', (data: any) => {
+		const label = data.apartmentData.label
+		const index = $APARTMENTS.findIndex((p: any) => p.apartmentData.label === label)
+		if (index !== -1) {
+			$APARTMENTS[index] = data
+		}
 	})
 
 	ReceiveNUI('setShells', (data: any) => {

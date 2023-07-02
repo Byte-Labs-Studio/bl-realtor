@@ -1,8 +1,6 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
-local Shells = {}
-local Properties = {}
-local Apartments = {}
+PropertiesTable = {}
 
 local showBlipsForSale = false
 local showBlipsOwned = false
@@ -30,30 +28,6 @@ RegisterNUICallback("hideUI", function()
 	toggleUI(false)
 end)
 
-local function updateMenuData()
-	Shells = exports["ps-housing"]:GetShells()
-
-	local data = exports["ps-housing"]:GetData()
-	Properties = data.properties
-	Apartments = data.apartments
-	
-	-- All seperated so we can update them individually later on
-	SendNUIMessage({
-		action = "setShells",
-		data = Shells
-	})
-
-	SendNUIMessage({
-		action = "setProperties",
-		data = Properties
-	})
-
-	SendNUIMessage({
-		action = "setApartments",
-		data = Apartments
-	})
-end
-
 local function setRealtor(jobInfo)
 	if jobInfo.name == "realtor" then
 		SendNUIMessage({
@@ -63,25 +37,21 @@ local function setRealtor(jobInfo)
 	else 
 		SendNUIMessage({
 			action = "setRealtorGrade",
-			data = nil
+			data = -1
 		})
 	end
 end
-
 RegisterNetEvent("QBCore:Client:OnJobUpdate", setRealtor)
 
-AddEventHandler('QBCore:Client:OnPlayerLoaded', function() -- Don't use this with the native method
-	updateMenuData()
+AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
     local PlayerData = QBCore.Functions.GetPlayerData()
 	setRealtor(PlayerData.job)
 end)
 
-AddEventHandler("onResourceStart", function(resourceName)
-	if (GetCurrentResourceName() == resourceName) then
-
+--this was mainly used for dev
+AddEventHandler("onResourceStart", function(resName)
+	if (GetCurrentResourceName() == resName) then
 		Wait(2000)
-
-		updateMenuData()
 		SendNUIMessage({
 			action = "setConfig",
 			data = Config.RealtorPerms
@@ -90,35 +60,6 @@ AddEventHandler("onResourceStart", function(resourceName)
 		local PlayerData = QBCore.Functions.GetPlayerData()
 		setRealtor(PlayerData.job)
 	end
-
-	if (resourceName == "ps-housing") then
-		updateMenuData()
-	end
-end)
-
--- I was going to make it only going to run the 2 handler if they were in the menu or realtor but I think its good to update anyway
-AddEventHandler("bl-realtor:client:updateProperties", function(data)
-	Properties = data
-	if showBlipsForSale then
-		CreateBlipsOnMap("forSale")
-	end
-
-	if showBlipsOwned then
-		CreateBlipsOnMap("owned")
-	end
-
-	SendNUIMessage({
-		action = "setProperties",
-		data = Properties
-	})
-end)
-
-AddEventHandler("bl-realtor:client:updateApartments", function(data)
-	Apartments = data
-	SendNUIMessage({
-		action = "setApartments",
-		data = Apartments
-	})
 end)
 
 RegisterCommand("housing", function()
@@ -143,7 +84,6 @@ end)
 RegisterNUICallback("addTenantToApartment", function(data, cb)
 	TriggerServerEvent("bl-realtor:server:addTenantToApartment", data)
 	cb("ok")
-
 end)
 
 RegisterNUICallback("getNames", function(data, cb)
@@ -153,7 +93,7 @@ RegisterNUICallback("getNames", function(data, cb)
 end)
 
 RegisterNUICallback("startZonePlacement", function (data, cb)
-	cb("ok") -- too long for promise
+	 cb(1)
 	SetNuiFocus(false, false)
 
 	local type = data.type
@@ -180,8 +120,10 @@ RegisterNUICallback("startZonePlacement", function (data, cb)
 			}
 		})
 	end
-
-	TriggerServerEvent("bl-realtor:server:updateProperty", type, property_id, newData)
+	local data = {
+		door = newData
+	}
+	TriggerServerEvent("bl-realtor:server:updateProperty", type, property_id, data)
 end)
 
 
@@ -212,6 +154,7 @@ function ZoneThread(type, promise)
 
 	CreateThread(function()
 		while findingZone do
+			cache.ped = PlayerPedId()
 			local coords = GetEntityCoords(cache.ped)
 			local x = coords.x
 			local y = coords.y
@@ -277,14 +220,14 @@ function CreateBlipsOnMap(type)
 	local nameType = type == "forSale" and "Property For Sale" or "Owned Property"
 
 	RemoveBlipsOnMap(type)
-	for k, v in pairs(Properties) do
-		if not v.apartment then
-			local isForSale = v.for_sale
-			local owner = v.owner
+	for k, data in pairs(PropertiesTable) do
+		if not data.apartment then
+			local isForSale = data.for_sale
+			local owner = data.owner
 			print(isForSale, owner)
 
-			local coords = v.door_data
-			local blipName = '('..nameType..')' .. ' ' .. v.label .. ' - ' .. v.property_id
+			local coords = data.door_data
+			local blipName = '('..nameType..')' .. ' ' .. data.label .. ' - ' .. data.property_id
 			if type == "forSale" and isForSale then
 				local blip = CreateBlip(coords, blipName)
 				blipsTable[#blipsTable + 1] = blip

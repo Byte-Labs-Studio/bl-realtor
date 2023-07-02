@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { IApartment } from '@typings/type'
 	import { fade } from 'svelte/transition'
-	import { REALTOR_GRADE, CONFIG } from '@store/stores'
+	import { REALTOR_GRADE, CONFIG, APARTMENTS } from '@store/stores'
 	import Information from './ApartmentModal/Information.svelte'
 	import CurrentTenants from './ApartmentModal/CurrentTenants.svelte'
 	import EditOptions from './ApartmentModal/EditOptions.svelte'
@@ -45,7 +45,7 @@
 					<!-- Information -->
 					<Information {selectedApartment} />
 					<!-- Assign new tenant -->
-					<EditOptions {selectedApartment} />
+					<EditOptions bind:selectedApartment={selectedApartment} />
 				</div>
 				<CurrentTenants {selectedApartment} />
 			</div>

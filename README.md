@@ -1,6 +1,8 @@
 # bl-realtor
 `/housing` command
 
+I didnt get any design for this, so a UI redo will be done at some point.
+
 # Preview
 ![image](https://github.com/Byte-Labs-Project/bl-realtor/assets/82112471/0fd5aa8b-7305-4239-b6fd-f82b682b83c7)
 ![image](https://github.com/Byte-Labs-Project/bl-realtor/assets/82112471/8e702104-92f2-4696-a59e-e3ea89b975b5)

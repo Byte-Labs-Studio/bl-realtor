@@ -25,7 +25,8 @@ type img = {
 export interface IProperty {
     property_id: number;
     owner?: string;
-    label: string;
+    street?: string;
+    region?: string;
     description: string;
     shell: string;
     extra_imgs: img[];

@@ -37,7 +37,7 @@
 			</h1>
 
 			<h2 class="text-3xl text-center font-bold pt-4">
-				{selectedProperty.label}
+				{selectedProperty.street} {selectedProperty.property_id}
 			</h2>
 
 			<div

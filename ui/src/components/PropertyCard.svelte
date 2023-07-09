@@ -34,7 +34,7 @@
 	<div
 		class="flex flex-col flex-grow flex-shrink gap-4 p-4 justify-center w-full"
 	>
-		<h1 class="text-2xl font-bold">{property.label}</h1>
+		<h1 class="text-2xl font-bold">{property.street}</h1>
 		<p class="text-xl">{property.description}</p>
 
 		<!-- Chips -->

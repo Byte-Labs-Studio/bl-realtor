@@ -6,7 +6,6 @@
 
     export let isCreating: boolean = false
 
-	let label: string = ''
 	let description: string = ''
 	let for_sale: boolean = false
 	let price: number = 0
@@ -25,9 +24,8 @@
 	})
 
     $: {
-        valid = label.length > 0 && description.length > 0 && price > 0 && shell.length > 0 && door_data
+        valid = description.length > 0 && price > 0 && shell.length > 0 && door_data
         SendNUI('create:setTextFields', {
-            label: label,
             description: description,
             for_sale: for_sale,
             price: price,
@@ -40,15 +38,6 @@
 	class="max-w-[60%] h-fit bg-[color:var(--color-secondary)] flex flex-col gap-4 p-5"
     in:fly={{ y: 10, duration: 250 }}
 >
-	<!-- Label -->
-	<div class="flex flex-row gap-2 items-center w-full">
-		<p class="text-2xl font-bold">Label</p>
-		<input
-			type="text"
-			class="text-2xl bg-[color:var(--color-tertiary)] p-2 w-full"
-			bind:value={label}
-		/>
-	</div>
 
 	<!-- Description -->
 	<div class="flex flex-row gap-2 items-center w-full">
@@ -74,8 +63,8 @@
 			class="text-2xl bg-[color:var(--color-tertiary)] p-2"
 			bind:value={shell}
 		>
-			{#each Object.keys($SHELLS) as shellK}
-				<option value={shellK}>{shellK}</option>
+			{#each Object.keys($SHELLS) as shell}
+				<option value={shell}>{shell}</option>
 			{/each}
 		</select>
 	</div>

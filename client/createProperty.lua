@@ -14,7 +14,6 @@ CreateProperty = {
 
     CancelCreating = function(self)
         self.creating = false
-        self.label = ""
         self.description = ""
         self.for_sale = false
         self.price = 0
@@ -25,7 +24,6 @@ CreateProperty = {
     end,
 
     SetTextFields = function(self, data)
-        self.label = data.label
         self.description = data.description
         self.for_sale = data.for_sale
         self.price = data.price

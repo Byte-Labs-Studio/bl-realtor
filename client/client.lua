@@ -120,8 +120,17 @@ RegisterNUICallback("startZonePlacement", function (data, cb)
 			}
 		})
 	end
+
+	local streetHash = GetStreetNameAtCoord(newData.x, newData.y, newData.z)
+	local street = GetStreetNameFromHashKey(streetHash)
+
+	local regionHash = GetNameOfZone(newData.x, newData.y, newData.z)
+	local region = GetLabelText(regionHash)
+
 	local data = {
-		door = newData
+		door = newData,
+		street = street,
+		region = region,
 	}
 	TriggerServerEvent("bl-realtor:server:updateProperty", type, property_id, data)
 end)
@@ -226,7 +235,7 @@ function CreateBlipsOnMap(type)
 			local owner = data.owner
 
 			local coords = data.door_data
-			local blipName = '('..nameType..')' .. ' ' .. data.label .. ' - ' .. data.property_id
+			local blipName = '('..nameType..')' .. ' ' .. data.street .. ' ' .. data.property_id
 			if type == "forSale" and isForSale then
 				local blip = CreateBlip(coords, blipName)
 				blipsTable[#blipsTable + 1] = blip

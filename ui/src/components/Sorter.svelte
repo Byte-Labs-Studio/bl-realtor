@@ -58,16 +58,22 @@
 	function filterSearch(properties: IProperty[]) {
 		if (searchTerm.length < 1) return properties
 		properties = properties.filter((property) => {
-			const labelFilter = property.label
+			const streetFilter = property.street
 				.toLowerCase()
-				.includes(searchTerm.toLowerCase())
+				.includes(searchTerm.toLowerCase()) ?? false
+			const regionFilter = property.region
+				.toLowerCase()
+				.includes(searchTerm.toLowerCase()) ?? false
 			const descriptionFilter = property.description
 				.toLowerCase()
 				.includes(searchTerm.toLowerCase())
 			const shellFilter = property.shell
 				.toLowerCase()
 				.includes(searchTerm.toLowerCase())
-			return labelFilter || descriptionFilter || shellFilter
+			const apartmentFilter = property.apartment
+				.toLowerCase()
+				.includes(searchTerm.toLowerCase()) ?? false
+			return streetFilter || descriptionFilter || shellFilter || regionFilter || apartmentFilter
 		})
 		return properties
 	}

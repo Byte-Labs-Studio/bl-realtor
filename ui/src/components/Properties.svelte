@@ -6,7 +6,7 @@
 	import PropertyModal from './PropertyModal.svelte'
 	import CreateCard from './CreateCard.svelte'
 	import PropertyCard from './PropertyCard.svelte'
-	import { CONFIG, PROPERTIES, REALTOR_GRADE } from '@store/stores'
+	import { CONFIG, REALTOR_GRADE } from '@store/stores'
 
 	let Properties: IProperty[] = []
 	let selectedProperty: IProperty | null = null

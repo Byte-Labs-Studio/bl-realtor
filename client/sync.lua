@@ -72,3 +72,12 @@ AddEventHandler("ps-housing:client:updateApartment", function(old, new)
 		data = newApt
 	})
 end)
+
+RegisterNetEvent('ps-housing:client:addProperty', function(propertyData)
+	PropertiesTable[#PropertiesTable+1] = propertyData
+
+	SendNUIMessage({
+		action = "updateProperty", -- if it cant find the property it will add it
+		data = propertyData
+	})
+end)

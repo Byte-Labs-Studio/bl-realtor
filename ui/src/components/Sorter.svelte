@@ -16,7 +16,8 @@
 			lowToHigh ||
 			onlyGarage ||
 			filterSale ||
-			includeApartments
+			includeApartments ||
+			$PROPERTIES.length
 		) {
 			filter()
 		}
@@ -33,11 +34,11 @@
 
 		setTimeout(() => {
 			let properties: IProperty[] = $PROPERTIES
-		properties = filterForSale(properties)
-		properties = filterGarage(properties)
-		properties = filterPriceSort(properties)
-		properties = filterSearch(properties)
-		Properties = filterApartment(properties)
+			properties = filterForSale(properties)
+			properties = filterGarage(properties)
+			properties = filterPriceSort(properties)
+			properties = filterSearch(properties)
+			Properties = filterApartment(properties)
 		}, 1)
 	}
 
@@ -59,11 +60,15 @@
 		if (searchTerm.length < 1) return properties
 		properties = properties.filter((property) => {
 			const streetFilter = property.street
-				.toLowerCase()
-				.includes(searchTerm.toLowerCase()) ?? false
+				? property.street
+						.toLowerCase()
+						.includes(searchTerm.toLowerCase())
+				: false
 			const regionFilter = property.region
-				.toLowerCase()
-				.includes(searchTerm.toLowerCase()) ?? false
+				? property.region
+						.toLowerCase()
+						.includes(searchTerm.toLowerCase())
+				: false
 			const descriptionFilter = property.description
 				.toLowerCase()
 				.includes(searchTerm.toLowerCase())
@@ -71,9 +76,22 @@
 				.toLowerCase()
 				.includes(searchTerm.toLowerCase())
 			const apartmentFilter = property.apartment
-				.toLowerCase()
-				.includes(searchTerm.toLowerCase()) ?? false
-			return streetFilter || descriptionFilter || shellFilter || regionFilter || apartmentFilter
+				? property.apartment
+						.toLowerCase()
+						.includes(searchTerm.toLowerCase())
+				: false
+			const propertyNumberFilter =
+				property.property_id
+					.toString()
+					.includes(searchTerm.toLowerCase()) ?? false
+			return (
+				streetFilter ||
+				descriptionFilter ||
+				shellFilter ||
+				regionFilter ||
+				apartmentFilter ||
+				propertyNumberFilter
+			)
 		})
 		return properties
 	}

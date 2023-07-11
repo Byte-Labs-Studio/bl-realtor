@@ -47,6 +47,8 @@
 
 		if (index !== -1) {
 			$PROPERTIES[index] = data
+		} else {
+			$PROPERTIES.push(data)
 		}
 	})
 

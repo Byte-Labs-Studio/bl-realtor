@@ -69,7 +69,6 @@
 					customFunction: () => {
 						let newProperty = Object.assign({}, debugProperty)
 						newProperty.property_id = properties.length + 1
-						newProperty.label = `Test Property ${Math.floor(Math.random() * 1000000)}`
 						newProperty.price = Math.floor(Math.random() * 1000000)
 						newProperty.for_sale = (Math.random() > 0.5 ? 1 : 0)
 						let coords = {

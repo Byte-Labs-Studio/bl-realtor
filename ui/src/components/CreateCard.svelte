@@ -7,7 +7,7 @@
     export let isCreating: boolean = false
 
 	let description: string = ''
-	let for_sale: boolean = false
+	let for_sale: boolean = true
 	let price: number = 0
 	let shell: string = ''
 	let door_data: any = null

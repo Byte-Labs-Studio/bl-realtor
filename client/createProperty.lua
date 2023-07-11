@@ -1,8 +1,9 @@
 CreateProperty = {
     creating = false,
-    label = "",
+    street = "",
+    region = "",
     description = "",
-    for_sale = false,
+    for_sale = 1,
     price = 0,
     shell = "",
     door_data = nil,
@@ -59,6 +60,14 @@ CreateProperty = {
                 data = true
             })
         end
+
+        
+        local streetHash = GetStreetNameAtCoord(zoneData.x, zoneData.y, zoneData.z)
+        self.street = GetStreetNameFromHashKey(streetHash)
+
+        local regionHash = GetNameOfZone(zoneData.x, zoneData.y, zoneData.z)
+        self.region = GetLabelText(regionHash)
+
     end,
 
     RemoveGarage = function(self)
@@ -71,7 +80,8 @@ CreateProperty = {
 
     CreateProperty = function(self)
         local data = {
-            label = self.label,
+            street = self.street,
+            region = self.region,
             description = self.description,
             for_sale = self.for_sale,
             price = self.price,
@@ -79,6 +89,7 @@ CreateProperty = {
             door_data = self.door_data,
             garage_data = self.garage_data,
         }
+        print(json.encode(data, {indent = true}))
         TriggerServerEvent("bl-realtor:server:registerProperty", data)
         self:CancelCreating()
     end,

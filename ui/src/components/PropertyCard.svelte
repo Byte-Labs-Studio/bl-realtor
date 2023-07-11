@@ -34,9 +34,10 @@
 	<div
 		class="flex flex-col flex-grow flex-shrink gap-4 p-4 justify-center w-full"
 	>
-		<h1 class="text-2xl font-bold">{property.street}</h1>
-		<p class="text-xl">{property.description}</p>
-
+		<h1 class="text-2xl font-bold">{property.street || property.apartment} {property.property_id}</h1>
+		{#if property.region}
+			<p class="text-xl">{property.region}</p>
+		{/if}
 		<!-- Chips -->
 		<div
 			class="flex flex-row flex-grow flex-wrap flex-shrink gap-4 items-center justify-center"

@@ -23,9 +23,6 @@
 	let editIsForSale: boolean = false
 	let tempIsForSale: boolean = selectedProperty.for_sale ? true : false
 
-	let editingLabel: boolean = false
-	let tempNewLabel: string = selectedProperty.label
-
 	let editingDescription: boolean = false
 	let tempNewDescription: string = selectedProperty.description
 
@@ -149,45 +146,6 @@
 					</div>
 				{/if}
 			{/if}
-		{/if}
-
-		<div class="flex flex-row gap-2 items-center">
-			<p class="text-2xl font-bold">Manage Label</p>
-			<div class="flex flex-row w-fit gap-4 items-center justify-center">
-				<button
-					class="bg-[color:var(--color-tertiary)] flex flex-row items-center justify-center gap-2 p-2"
-					on:click={() => (editingLabel = !editingLabel)}
-				>
-					<i class="fas fa-caret-{editingLabel ? 'up' : 'down'}" />
-					<i class="fas fa-pen" />
-					<p>Edit</p>
-				</button>
-			</div>
-		</div>
-		{#if editingLabel}
-			<div class="flex flex-row gap-2 items-center">
-				<input
-					type="text"
-					placeholder="Label"
-					class="text-2xl bg-[color:var(--color-tertiary)] p-2"
-					bind:value={tempNewLabel}
-				/>
-				<button
-					class="bg-[color:var(--color-tertiary)] flex flex-row items-center justify-center gap-2 p-2"
-					on:click={() => {
-						SendNUI('updatePropertyData', {
-							type: 'UpdateLabel',
-							property_id: selectedProperty.property_id,
-							data: {label: tempNewLabel},
-						})
-						$PROPERTIES[index].label = tempNewLabel
-						selectedProperty.label = tempNewLabel
-					}}
-				>
-					<i class="fas fa-check" />
-					<p>Save</p>
-				</button>
-			</div>
 		{/if}
 
 		<div class="flex flex-row gap-2 items-center">

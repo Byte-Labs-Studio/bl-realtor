@@ -89,7 +89,7 @@ CreateProperty = {
             door_data = self.door_data,
             garage_data = self.garage_data,
         }
-        print(json.encode(data, {indent = true}))
+        
         TriggerServerEvent("bl-realtor:server:registerProperty", data)
         self:CancelCreating()
     end,

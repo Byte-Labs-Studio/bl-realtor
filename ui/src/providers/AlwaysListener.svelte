@@ -50,6 +50,8 @@
 		} else {
 			$PROPERTIES.push(data)
 		}
+
+		$PROPERTIES = [...$PROPERTIES]
 	})
 
 	ReceiveNUI('setApartments', (data: any) => {
@@ -63,6 +65,8 @@
 		if (index !== -1) {
 			$APARTMENTS[index] = data
 		}
+
+		$APARTMENTS = [...$APARTMENTS]
 	})
 
 	ReceiveNUI('setShells', (data: any) => {

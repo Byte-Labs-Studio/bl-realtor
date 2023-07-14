@@ -38,7 +38,6 @@ AddEventHandler('ps-housing:client:initialisedProperties', function()
 end)
 
 AddEventHandler('ps-housing:client:updatedProperty', function(property_id)
-
 	local property = exports['ps-housing']:GetProperty(property_id)
 
 	for i = 1, #PropertiesTable do

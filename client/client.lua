@@ -127,12 +127,21 @@ RegisterNUICallback("startZonePlacement", function (data, cb)
 	local regionHash = GetNameOfZone(newData.x, newData.y, newData.z)
 	local region = GetLabelText(regionHash)
 
-	local data = {
-		door = newData,
-		street = street,
-		region = region,
-	}
-	TriggerServerEvent("bl-realtor:server:updateProperty", type, property_id, data)
+	if type == "UpdateGarage" then
+    local data = {
+        garage = newData,
+        street = street,
+        region = region,
+    }
+    TriggerServerEvent("bl-realtor:server:updateProperty", type, property_id, data)
+	else
+    local data = {
+        door = newData,
+        street = street,
+        region = region,
+    }
+    TriggerServerEvent("bl-realtor:server:updateProperty", type, property_id, data)
+	end
 end)
 
 

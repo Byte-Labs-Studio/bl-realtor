@@ -1,7 +1,8 @@
 # bl-realtor
 `/housing` command
 
-I didnt get any design for this, so a UI redo will be done at some point.
+There was no design for this, so a UI will be getting a redo soon.
+MLO support and Outside furniture will also be coming.
 
 # Preview
 ![image](https://github.com/Byte-Labs-Project/bl-realtor/assets/82112471/0fd5aa8b-7305-4239-b6fd-f82b682b83c7)

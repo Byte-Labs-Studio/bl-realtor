@@ -259,9 +259,14 @@
 							type: 'UpdateShell',
 							property_id: selectedProperty.property_id,
 							data: {shell: tempNewShell},
-						})
-						$PROPERTIES[index].shell = tempNewShell
-						selectedProperty.shell = tempNewShell
+						}).then((res) => {
+    				  	if (res === "ok") {
+							$PROPERTIES[index].shell = tempNewShell
+							selectedProperty.shell = tempNewShell
+    				  	} else {
+    				  	  console.log("Invalid Shell")
+    				  	}
+    					});
 					}}
 				>
 					<i class="fas fa-check" />

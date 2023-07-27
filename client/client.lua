@@ -106,12 +106,14 @@ AddEventHandler("onResourceStart", function(resName)
 	end
 end)
 
-RegisterCommand("housing", function()
-	local PlayerData = QBCore.Functions.GetPlayerData()
-    if not PlayerData.metadata["isdead"] and not PlayerData.metadata["inlaststand"] and not PlayerData.metadata["ishandcuffed"] and not IsPauseMenuActive() then
-		toggleUI(not UIOpen)
-	end
-end, false)
+if Config.UseCommand then
+	RegisterCommand("housing", function()
+		local PlayerData = QBCore.Functions.GetPlayerData()
+		if not PlayerData.metadata["isdead"] and not PlayerData.metadata["inlaststand"] and not PlayerData.metadata["ishandcuffed"] and not IsPauseMenuActive() then
+			toggleUI(not UIOpen)
+		end
+	end, false)
+end
 
 RegisterNetEvent('bl-realtor:client:toggleUI', function()
 	local PlayerData = QBCore.Functions.GetPlayerData()

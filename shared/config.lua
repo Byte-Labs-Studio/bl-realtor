@@ -24,6 +24,17 @@ Config.Job = {
     }
 }
 
+-- Set this value to TRUE if you want to use the Config.ItemName as a usable Item to open the Housing Menu(Realtor Menu)
+Config.UseItem = true
+
+--Set this value to FALSE if u DON'T want to play the tablet animation when using /housing or the usable item
+Config.PlayAnimation = true
+
+--Change this to whatever prop u want to use for the animation
+Config.AnimationProp = 'prop_cs_tablet'
+
+Config.ItemName = "tablet"  -- Item name to make it usable
+
 --Commisions is handled in ps-housing config.
 
 Config.RealtorPerms = {

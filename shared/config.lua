@@ -15,11 +15,11 @@ Config.Job = {
         },
         ['2'] = {
             name = 'Manager',
-            pay = 500
+            payment = 500
         },
         ['3'] = {
             name = 'Owner',
-            pay = 750
+            payment = 750
         }
     }
 }

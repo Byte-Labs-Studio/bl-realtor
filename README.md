@@ -1,6 +1,8 @@
 # bl-realtor
 `/housing` command
 
+Join Byte Labs Project [Discord](https://discord.gg/YS5KfZVtEp)
+
 There was no design for this, so a UI will be getting a redo soon.
 MLO support and Outside furniture will also be coming.
 

@@ -61,3 +61,13 @@ lib.callback.register("bl-realtor:server:getNames", function (source, data)
     
     return names
 end)
+
+if Config.UseItem then
+    QBCore.Functions.CreateUseableItem(Config.ItemName, function(source, item)
+        local src = source
+        local Player = QBCore.Functions.GetPlayer(src)
+        if Player.Functions.GetItemByName(item.name) ~= nil then
+            TriggerClientEvent("bl-realtor:client:toggleUI", src)
+        end
+    end)
+end

@@ -174,8 +174,8 @@ function ZoneThread(type, promise)
     local height = 2.5
 
 	if type == "garage" then
-		lib.notify({text="Best to get in a vehicle to see how the zone would look.", type="error"})
-		
+		lib.notify({description="Best to get in a vehicle to see how the zone would look.", type="error"})
+
 		length = 3.0
 		width = 5.0
 	end

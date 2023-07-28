@@ -29,7 +29,7 @@ RegisterNUICallback("hideUI", function()
 end)
 
 local function setRealtor(jobInfo)
-	if jobInfo.name == "realtor" then
+	if jobInfo.name == Config.RealtorJobName then
 		SendNUIMessage({
 			action = "setRealtorGrade",
 			data = jobInfo.grade.level

@@ -77,6 +77,16 @@ RegisterNUICallback("updatePropertyData", function(data, cb)
 	local newData = data.data
 	local changeType = data.type
 
+	if changeType == 'UpdateShell' then
+		local currentShells = exports['ps-housing']:GetShells()
+		local shellName = currentShells[newData.shell].hash
+
+		if not IsModelInCdimage(shellName) then
+			lib.notify({ description = 'The Interior '..newData.shell..' does not exist!', type = 'error'})
+			return
+		end
+	end
+
 	TriggerServerEvent("bl-realtor:server:updateProperty", changeType, property_id, newData)
 	cb("ok")
 end)

@@ -1,28 +1,36 @@
 Config = Config or {}
 
-Config.Job = {
-    label = 'Realtor',
-    defaultDuty = true,
-    offDutyPay = false,
-    grades = {
-        ['0'] = {
-            name = 'Trainee',
-            payment = 200
-        },
-        ['1'] = {
-            name = 'Realtor',
-            payment = 350
-        },
-        ['2'] = {
-            name = 'Manager',
-            pay = 500
-        },
-        ['3'] = {
-            name = 'Owner',
-            pay = 750
-        }
-    }
-}
+-- Add this to qbcore/shared/jobs.lua
+
+--[[
+
+	['realtor'] = {
+		label = 'Realtor',
+		defaultDuty = true,
+		offDutyPay = false,
+		grades = {
+            ['0'] = {
+                name = 'Trainee',
+                payment = 200
+            },
+            ['1'] = {
+                name = 'Realtor',
+                payment = 350
+            },
+			['2'] = {
+                name = 'Manager',
+                payment = 500
+            },
+			['3'] = {
+                name = 'Owner',
+				isboss = true,
+                payment = 750
+            },
+        }, 
+
+--]]
+
+Config.RealtorJobName = "realtor" -- Set your Real Estate here
 
 --Commisions is handled in ps-housing config.
 

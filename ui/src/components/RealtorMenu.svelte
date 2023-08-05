@@ -4,13 +4,14 @@
 	import Properties from '@components/Properties.svelte'
 	import { REALTOR_GRADE, TEMP_HIDE, CONFIG } from '@store/stores'
 	import Apartments from '@components/Apartments.svelte'
+	import PropertyBase from './properties/PropertyBase.svelte'
 
 	// basic available tabs
 	let availableNavTabs: ITab[] = [
 		{
 			name: 'Properties',
 			icon: 'fas fa-home',
-			component: Properties,
+			component: PropertyBase,
 		},
 	];
 
@@ -97,7 +98,7 @@
 	</div>
 
 	<div class="right-column">
-
+		<svelte:component this={selectedTab.component} />
 	</div>
 
 		<!-- <div class="w-full h-full overflow-hidden">

@@ -8,7 +8,7 @@ export const PROPERTIES = writable<any[]>([]);
 export const SHELLS = writable<any[]>([]);
 export const APARTMENTS = writable<any[]>([]);
 
-export const REALTOR_GRADE = writable<number>(null);
+export const REALTOR_GRADE = writable<number>(3);
 
 export const TEMP_HIDE = writable<boolean>(false);
 

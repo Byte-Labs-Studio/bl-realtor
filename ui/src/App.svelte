@@ -3,8 +3,7 @@
 	import { TEMP_HIDE, browserMode, resName } from '@store/stores'
 	import DebugBrowser from '@providers/DebugBrowser.svelte'
 	import AlwaysListener from '@providers/AlwaysListener.svelte'
-	// import RealtorMenu from '@components/RealtorMenu.svelte'
-	import RealtorMenu from '@components/newCodes/base/RealtorMenu.svelte'
+	import RealtorMenu from '@components/RealtorMenu.svelte'
 
 	$resName = 'Svelte-Template' // Change this to your resource name (case sensitive)
 </script>

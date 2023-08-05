@@ -12,4 +12,12 @@
             </div>
         </div>
     </div>
+
+    <div class="properties-heading-wrapper">
+        <p class="heading">All Properties Listed  </p>
+
+        <div class="filters-wrapper">
+            here
+        </div>
+    </div>
 </div>

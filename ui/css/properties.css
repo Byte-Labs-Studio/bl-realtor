@@ -76,9 +76,13 @@
 }
 
 .properties-base > .properties-heading-wrapper > .filters-wrapper {
-    margin-bottom: 0.5vw;
+    margin: 1vw 0 0.5vw 0;
 
     display: flex;
     flex-direction: row;
+}
+
+.properties-base > .properties-heading-wrapper > .filters-wrapper > div {
+    margin-right: 0.5vw;
 }
 /** properties list heading - end **/

@@ -1,3 +1,15 @@
+<script>
+	import DropdownComponent from "@components/generic/DropdownComponent.svelte"
+
+    const highLowDropdown = ['High to Low', 'Low to High'];
+    let selectedHighLowValue = highLowDropdown[0];
+
+    const forSaleDropdown = ['For Sale', 'All Properties'];
+    let selectedForSaleValue = forSaleDropdown[0];
+
+    const typeDropdown = ['House', 'Apartments'];
+    let selectedTypeValue = typeDropdown[0];
+</script>
 <div class="properties-base">
     <div class="search-wrapper">
         <img src="/images/apts-bg.png" />
@@ -17,7 +29,9 @@
         <p class="heading">All Properties Listed  </p>
 
         <div class="filters-wrapper">
-            here
+            <DropdownComponent dropdownValues={highLowDropdown} label="" selectedValue={selectedHighLowValue} id="high-low-dd" />
+            <DropdownComponent dropdownValues={forSaleDropdown} label="" selectedValue={selectedForSaleValue} id="for-sale-dd" />
+            <DropdownComponent dropdownValues={typeDropdown} label="" selectedValue={selectedTypeValue} insideLabel="Type: " id="type-dd" />
         </div>
     </div>
 </div>

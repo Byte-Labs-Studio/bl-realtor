@@ -10,6 +10,7 @@
     padding: 1.3vw 0.3vw;
 
     border-right: 0.1px solid var(--light-border-color);
+    background-color: var(--light-border-color-half-opaque);
 
     display: flex;
     flex-direction: column;

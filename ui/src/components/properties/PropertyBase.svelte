@@ -37,11 +37,11 @@
     </div>
 
     <div class="property-listing-wrapper">
-        <PropertyCard />
-        <PropertyCard />
-        <PropertyCard />
-        <PropertyCard />
-        <PropertyCard />
-        <PropertyCard />
+        <PropertyCard id="property-card-1" />
+        <PropertyCard id="property-card-2" />
+        <PropertyCard id="property-card-3" />
+        <PropertyCard id="property-card-4" />
+        <PropertyCard id="property-card-5" />
+        <PropertyCard id="property-card-6" />
     </div>
 </div>

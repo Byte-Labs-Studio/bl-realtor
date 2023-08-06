@@ -79,3 +79,31 @@
     margin-right: 0.15vw;
     padding-top: 0.08vw;
 }
+
+/** CARD HOVER BUTTON - start **/
+.property-card-wrapper > .card-hover-button {
+    align-self: center;
+    background-color: var(--blue-color);
+    color: var(--white-color);
+
+    margin-top: 3vw;
+
+    width: 9vw;
+    padding: 0.15vw;
+    border-radius: 0.2vw;
+
+    font-size: 0.6vw;
+    font-weight: 500;
+}
+/* .property-card-wrapper > button {
+    visibility: hidden;
+}
+
+.property-card-wrapper:hover button {
+    display: inline-flex;
+
+    position: relative;
+    top: 50%;
+    left: 45%;
+} */
+/** CARD HOVER - end **/

@@ -50,7 +50,7 @@
  }
 
  .tab-wrapper > .each-tab-selected {
-    background-color: #0078D4;
+    background-color: var(--blue-color);
  }
 
 

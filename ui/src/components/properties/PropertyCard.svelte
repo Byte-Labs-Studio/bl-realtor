@@ -1,4 +1,12 @@
-<div class="property-card-wrapper">
+<script>
+    export let id = "property-card-1"
+</script>
+
+<div class="property-card-wrapper group">
+    <button class="invisible group-hover:visible absolute card-hover-button">
+        View Property
+    </button>
+    
     <img src="/images/property-card-img.png" />
 
     <div class="property-card-details">

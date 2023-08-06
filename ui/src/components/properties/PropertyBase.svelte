@@ -2,6 +2,7 @@
 	import PropertyCard from "@components/properties/PropertyCard.svelte"
     import DropdownComponent from "@components/generic/DropdownComponent.svelte"
 	import PropertyDetailsModal from "./PropertyDetailsModal.svelte"
+	import ManagePropertyModal from "./ManagePropertyModal.svelte"
 
     const highLowDropdown = ['High to Low', 'Low to High'];
     let selectedHighLowValue = highLowDropdown[0];
@@ -46,5 +47,5 @@
         <PropertyCard id="property-card-6" />
     </div>
 
-    <PropertyDetailsModal />
+    <ManagePropertyModal />
 </div>

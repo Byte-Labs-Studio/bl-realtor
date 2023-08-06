@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="large-footer-modal-body-data">
-                     <div class="data-details">
+                     <div class="data-details-manage-property">
                         <div class="left-column">
                             <p class="heading">
                                 Live Description

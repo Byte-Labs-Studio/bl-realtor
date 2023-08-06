@@ -3,14 +3,14 @@
     border-radius: 0.3vw;
   }
 
-  .large-footer-modal-body > .large-footer-modal-body-data > .data-details {
+  .large-footer-modal-body > .large-footer-modal-body-data > .data-details-property {
     display: flex;
     flex-direction: row;
 
     margin-top: 1.5vw;
   }
 
-  .large-footer-modal-body > .large-footer-modal-body-data > .data-details > .left-column {
+  .large-footer-modal-body > .large-footer-modal-body-data > .data-details-property > .left-column {
     height: 14.5vw;
     width: 70%;
     border-right: 0.1px solid var(--light-border-color);
@@ -18,12 +18,12 @@
     overflow-y: auto;
   }
 
-  .large-footer-modal-body > .large-footer-modal-body-data > .data-details > .left-column > .property-name {
+  .large-footer-modal-body > .large-footer-modal-body-data > .data-details-property > .left-column > .property-name {
     font-size: 0.8vw;
     font-weight: 600;
   }
 
-  .large-footer-modal-body > .large-footer-modal-body-data > .data-details > .left-column > .property-info {
+  .large-footer-modal-body > .large-footer-modal-body-data > .data-details-property > .left-column > .property-info {
     margin-top: 0.5vw;
     width: 75%;
 
@@ -33,7 +33,7 @@
     color: var(--light-border-color-8);
   }
 
-  .large-footer-modal-body > .large-footer-modal-body-data > .data-details > .left-column > .gallery-image-wrapper {
+  .large-footer-modal-body > .large-footer-modal-body-data > .data-details-property > .left-column > .gallery-image-wrapper {
     margin-top: 1vw;
 
     display: flex;
@@ -42,7 +42,7 @@
 
     row-gap: 0.5vw;
   }
-  .large-footer-modal-body > .large-footer-modal-body-data > .data-details > .left-column > .gallery-image-wrapper > img {
+  .large-footer-modal-body > .large-footer-modal-body-data > .data-details-property > .left-column > .gallery-image-wrapper > img {
     border-radius: 0.3vw;
 
     width: 9vw;
@@ -50,21 +50,21 @@
   }
 
 
-  .large-footer-modal-body > .large-footer-modal-body-data > .data-details > .right-column {
+  .large-footer-modal-body > .large-footer-modal-body-data > .data-details-property > .right-column {
     height: 14.5vw;
     width: 30%;
 
     padding-left: 1.3vw;
   }
 
-  .large-footer-modal-body > .large-footer-modal-body-data > .data-details > .right-column > .title {
+  .large-footer-modal-body > .large-footer-modal-body-data > .data-details-property > .right-column > .title {
     font-size: 0.8vw;
     font-weight: 600;
 
     margin-bottom: 0.8vw;
   }
 
-  .large-footer-modal-body > .large-footer-modal-body-data > .data-details > .right-column > .waypoint {
+  .large-footer-modal-body > .large-footer-modal-body-data > .data-details-property > .right-column > .waypoint {
     background-color: var(--blue-color);
     color: var(--white-color);
 
@@ -78,15 +78,15 @@
     flex-direction: row;
     justify-content: center;
   }
-  .large-footer-modal-body > .large-footer-modal-body-data > .data-details > .right-column > .waypoint > i {
+  .large-footer-modal-body > .large-footer-modal-body-data > .data-details-property > .right-column > .waypoint > i {
     padding-top: 0.2vw;
     margin-right: 0.5vw;
   }
-  .large-footer-modal-body > .large-footer-modal-body-data > .data-details > .right-column > .waypoint > p {
+  .large-footer-modal-body > .large-footer-modal-body-data > .data-details-property > .right-column > .waypoint > p {
     font-weight: 500;
   }
 
-  .large-footer-modal-body > .large-footer-modal-body-data > .data-details > .right-column > .tiles-wrapper {
+  .large-footer-modal-body > .large-footer-modal-body-data > .data-details-property > .right-column > .tiles-wrapper {
     margin-top: 0.75vw;
 
     font-size: 0.5vw;
@@ -102,7 +102,7 @@
 
     row-gap: 0.3vw;
 }
-.large-footer-modal-body > .large-footer-modal-body-data > .data-details > .right-column > .tiles-wrapper > .each-tile {
+.large-footer-modal-body > .large-footer-modal-body-data > .data-details-property > .right-column > .tiles-wrapper > .each-tile {
     border-radius: 0.1vw;
 
     min-width: 2.5vw;
@@ -119,7 +119,7 @@
     border: 0.1px solid var(--light-border-color-2);
 }
 
-.large-footer-modal-body > .large-footer-modal-body-data > .data-details > .right-column > .tiles-wrapper > .each-tile > i {
+.large-footer-modal-body > .large-footer-modal-body-data > .data-details-property > .right-column > .tiles-wrapper > .each-tile > i {
     color: var(--light-border-color-6);
     font-weight: 700;
     margin-right: 0.15vw;

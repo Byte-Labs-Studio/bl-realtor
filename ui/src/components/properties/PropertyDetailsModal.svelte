@@ -20,7 +20,7 @@
                 <div class="large-footer-modal-body-data">
                     <img src="/images/apts-bg.png" />
 
-                    <div class="data-details">
+                    <div class="data-details-property">
                         <div class="left-column">
                             <p class="property-name">
                                 Elgin Ave 2

@@ -2,9 +2,12 @@
     --light-border-color: rgba(255, 255, 255, 0.1);
     --light-border-color-2: rgba(255, 255, 255, 0.2);
     --less-light-border-color: rgba(255, 255, 255, 0.3);
+    --light-border-color-8: rgba(255, 255, 255, 0.8);
     --white-color: rgba(255, 255, 255, 1);
 
     --black-color: rgba(0, 0, 0, 1);
     --black-two-opaque-color: rgba(0, 0, 0, 0.2);
+
+    --tile-color: rgba(36, 36, 36, 1);
 
 }

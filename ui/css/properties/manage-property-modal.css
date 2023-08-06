@@ -1,5 +1,9 @@
-  .large-footer-modal-body > .large-footer-modal-body-data {
-    padding: 1.2vw 1vw;
+.manage-property-modal-dialog {
+  height: 40vw;
+}
+  .manage-property-large-footer-modal-body-data {
+    padding: 1.2vw 1vw !important;
+    height: 35.5vw !important;
   }
 
   .large-footer-modal-body > .large-footer-modal-body-data > .data-details-manage-property {
@@ -12,7 +16,7 @@
   .large-footer-modal-body > .large-footer-modal-body-data > .data-details-manage-property > .left-column {
     height: 28.2vw;
     width: 30%;
-    border-right: 0.1px solid var(--light-border-color);
+    /* border-right: 0.1px solid var(--light-border-color); */
 
     display: flex;
     flex-direction: column;
@@ -23,7 +27,7 @@
     font-weight: 600;
   }
   .large-footer-modal-body > .large-footer-modal-body-data > .data-details-manage-property > .left-column > .info {
-    font-size: 0.5vw;
+    font-size: 0.6vw;
     font-weight: 400;
     margin-top: 0.3vw;
     margin-right: 0.2vw;
@@ -35,6 +39,7 @@
     width: 70%;
 
     padding-left: 0.5vw;
+    margin-left: 1vw;
   }
 
   .large-footer-modal-body > .large-footer-modal-body-data > .data-details-manage-property > .right-column > .title {

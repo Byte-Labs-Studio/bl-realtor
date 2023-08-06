@@ -52,7 +52,7 @@
 
     .set-not-set-wrapper > .indicator {
         font-size: 0.3vw;
-        padding-top: 0.33vw;
+        padding-top: 0.3vw;
         margin-right: 0.3vw;
     }
 </style>

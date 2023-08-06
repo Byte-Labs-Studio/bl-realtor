@@ -117,7 +117,7 @@
   .form-dropdown-chevron {
     text-align: center;
     font-size: 0.5vw;
-    margin-top: 0.6vw;
+    margin-top: 0.5vw;
 
     color: var(--less-light-border-color);
   }

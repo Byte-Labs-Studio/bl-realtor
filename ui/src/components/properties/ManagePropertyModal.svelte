@@ -18,24 +18,14 @@
                 </div>
 
                 <div class="large-footer-modal-body-data">
-                    <img src="/images/apts-bg.png" />
-
-                    <div class="data-details">
+                     <div class="data-details">
                         <div class="left-column">
-                            <p class="property-name">
-                                Elgin Ave 2
+                            <p class="heading">
+                                Live Description
                             </p>
-
-                            <p class="property-info">
-                                The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous?
+                            <p class="info">
+                                Some instructions lorem lpsum is simply dummy text of printing
                             </p>
-
-                            <div class="gallery-image-wrapper">
-                                <img src="/images/apts-bg.png" />
-                                <img src="/images/apts-bg.png" />
-                                <img src="/images/apts-bg.png" />
-                                <img src="/images/apts-bg.png" />
-                            </div>
                         </div>
 
                         <div class="right-column">

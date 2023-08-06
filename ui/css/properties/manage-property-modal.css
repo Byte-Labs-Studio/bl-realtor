@@ -1,60 +1,40 @@
-.large-footer-modal-body > .large-footer-modal-body-data > img {
-    height: 12vw;
-    border-radius: 0.3vw;
+  .large-footer-modal-body > .large-footer-modal-body-data {
+    padding: 1.2vw 1vw;
   }
 
   .large-footer-modal-body > .large-footer-modal-body-data > .data-details {
     display: flex;
     flex-direction: row;
 
-    margin-top: 1.5vw;
+    margin-top: 0.1vw;
   }
 
   .large-footer-modal-body > .large-footer-modal-body-data > .data-details > .left-column {
-    height: 14.5vw;
-    width: 70%;
+    height: 28.2vw;
+    width: 30%;
     border-right: 0.1px solid var(--light-border-color);
 
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
   }
-
-  .large-footer-modal-body > .large-footer-modal-body-data > .data-details > .left-column > .property-name {
-    font-size: 0.8vw;
+  .large-footer-modal-body > .large-footer-modal-body-data > .data-details > .left-column > .heading {
+    font-size: 0.65vw;
     font-weight: 600;
   }
-
-  .large-footer-modal-body > .large-footer-modal-body-data > .data-details > .left-column > .property-info {
-    margin-top: 0.5vw;
-    width: 75%;
-
-    font-size: 0.65vw;
-    font-weight: 500;
-
-    color: var(--light-border-color-8);
-  }
-
-  .large-footer-modal-body > .large-footer-modal-body-data > .data-details > .left-column > .gallery-image-wrapper {
-    margin-top: 1vw;
-
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-
-    row-gap: 0.5vw;
-  }
-  .large-footer-modal-body > .large-footer-modal-body-data > .data-details > .left-column > .gallery-image-wrapper > img {
-    border-radius: 0.3vw;
-
-    width: 9vw;
-    margin-right: 0.8vw;
+  .large-footer-modal-body > .large-footer-modal-body-data > .data-details > .left-column > .info {
+    font-size: 0.5vw;
+    font-weight: 400;
+    margin-top: 0.3vw;
+    margin-right: 0.2vw;
   }
 
 
   .large-footer-modal-body > .large-footer-modal-body-data > .data-details > .right-column {
     height: 14.5vw;
-    width: 30%;
+    width: 70%;
 
-    padding-left: 1.3vw;
+    padding-left: 0.5vw;
   }
 
   .large-footer-modal-body > .large-footer-modal-body-data > .data-details > .right-column > .title {

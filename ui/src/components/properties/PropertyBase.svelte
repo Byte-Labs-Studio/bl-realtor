@@ -47,5 +47,6 @@
         <PropertyCard id="property-card-6" />
     </div>
 
+    <!-- <PropertyDetailsModal /> -->
     <ManagePropertyModal />
 </div>

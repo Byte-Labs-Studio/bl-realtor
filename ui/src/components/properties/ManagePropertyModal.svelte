@@ -81,16 +81,6 @@ import SetNotSetIndicator from '@components/generic/SetNotSetIndicator.svelte'
                                     <input id="img-url" type="text" placeholder="URL" style="width: 7vw;" />
                                     <button class="regular-button">Add</button>
                                 </div>
-                            </div>
-
-                            <div id="manage-door" class="form-row-wrapper">
-                                <p class="label">Manage Door</p>
-                            
-                                <div class="action-row">
-                                    <SetNotSetIndicator leftValue="Door" rightValue="Set" good={true} />
-                                    <button class="regular-button">New Location</button>
-                                    <button class="disable-button">Remove</button>
-                                </div>
 
                                 <div class="image-tiles-wrapper">
                                     <div>
@@ -101,6 +91,16 @@ import SetNotSetIndicator from '@components/generic/SetNotSetIndicator.svelte'
                                     <div></div>
                                     <div></div>
                                     <div></div>
+                                </div>
+                            </div>
+
+                            <div id="manage-door" class="form-row-wrapper">
+                                <p class="label">Manage Door</p>
+                            
+                                <div class="action-row">
+                                    <SetNotSetIndicator leftValue="Door" rightValue="Set" good={true} />
+                                    <button class="regular-button">New Location</button>
+                                    <button class="disable-button">Remove</button>
                                 </div>
                             </div>
                 

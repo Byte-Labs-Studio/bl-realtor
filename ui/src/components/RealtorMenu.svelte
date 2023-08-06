@@ -6,6 +6,7 @@
 	import Apartments from '@components/Apartments.svelte'
 	import PropertyBase from './properties/PropertyBase.svelte'
 	import ApartmentsBase from './apartments/ApartmentsBase.svelte'
+	import ListPropertiesBase from './list-properties/ListPropertiesBase.svelte'
 
 	// basic available tabs
 	let availableNavTabs: ITab[] = [
@@ -30,7 +31,7 @@
 			availableNavTabs.push({
 				name: 'List New Property',
 				icon: 'fas fa-plus-circle',
-				component: Apartments,
+				component: ListPropertiesBase,
 			});
 		}
 	});

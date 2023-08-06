@@ -1,0 +1,37 @@
+/** NO NEW PROPERTIES - start **/
+
+.no-new-properties-base {
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+
+    position: absolute;
+    left: 60%;  
+    top: 47%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);  
+}
+
+.no-new-properties-base > img {
+    width: 3vw;
+
+    margin-bottom: 0.8vw;
+}
+
+.no-new-properties-base > p {
+    color: var(--white-color);
+    font-size: 0.7vw;
+}
+
+.no-new-properties-base > button {
+    background-color: var(--blue-color);
+    font-size: 0.6vw;
+    font-weight: 500;
+
+    border-radius: 0.2vw;
+
+    padding: 0.2vw 0.9vw;
+    margin-top: 0.8vw;
+}
+/** NO NEW PROPERTIES - end **/

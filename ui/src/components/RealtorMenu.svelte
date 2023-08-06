@@ -5,6 +5,7 @@
 	import { REALTOR_GRADE, TEMP_HIDE, CONFIG } from '@store/stores'
 	import Apartments from '@components/Apartments.svelte'
 	import PropertyBase from './properties/PropertyBase.svelte'
+	import ApartmentsBase from './apartments/ApartmentsBase.svelte'
 
 	// basic available tabs
 	let availableNavTabs: ITab[] = [
@@ -21,7 +22,7 @@
 			availableNavTabs.push({
 				name: 'Apartments',
 				icon: 'fas fa-building',
-				component: Apartments,
+				component: ApartmentsBase,
 			});
 		}
 

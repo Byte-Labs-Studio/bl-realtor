@@ -7,3 +7,6 @@
 @import './properties/property-card.css';
 @import './properties/property-details-modal.css';
 @import './properties/manage-property-modal.css';
+
+@import './apartments/apartments.css';
+@import './apartments/apartment-card.css';

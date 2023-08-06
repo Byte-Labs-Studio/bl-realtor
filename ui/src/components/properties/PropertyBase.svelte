@@ -1,5 +1,6 @@
 <script>
-	import DropdownComponent from "@components/generic/DropdownComponent.svelte"
+	import PropertyCard from "@components/properties/PropertyCard.svelte"
+    import DropdownComponent from "@components/generic/DropdownComponent.svelte"
 
     const highLowDropdown = ['High to Low', 'Low to High'];
     let selectedHighLowValue = highLowDropdown[0];
@@ -33,5 +34,14 @@
             <DropdownComponent dropdownValues={forSaleDropdown} label="" selectedValue={selectedForSaleValue} id="for-sale-dd" />
             <DropdownComponent dropdownValues={typeDropdown} label="" selectedValue={selectedTypeValue} insideLabel="Type: " id="type-dd" />
         </div>
+    </div>
+
+    <div class="property-listing-wrapper">
+        <PropertyCard />
+        <PropertyCard />
+        <PropertyCard />
+        <PropertyCard />
+        <PropertyCard />
+        <PropertyCard />
     </div>
 </div>

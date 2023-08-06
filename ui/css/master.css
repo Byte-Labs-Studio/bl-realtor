@@ -1,4 +1,7 @@
 @import './realtor-menu.css';
 @import './colors.css';
-@import './properties.css';
 @import './generic-components.css';
+@import './global.css';
+
+@import './properties/properties.css';
+@import './properties/property-card.css';

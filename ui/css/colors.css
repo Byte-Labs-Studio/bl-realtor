@@ -1,5 +1,6 @@
 :root {
     --light-border-color: rgba(255, 255, 255, 0.1);
+    --light-border-color-2: rgba(255, 255, 255, 0.2);
     --less-light-border-color: rgba(255, 255, 255, 0.3);
     --white-color: rgba(255, 255, 255, 1);
 

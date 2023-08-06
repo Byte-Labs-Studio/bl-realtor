@@ -23,3 +23,11 @@
   ::-webkit-scrollbar-thumb:hover {
     background: rgba(191, 219, 254, 0.5); 
   }
+
+  .green {
+    color: var(--green-color);
+  }
+
+  .red {
+    color: var(--red-color);
+  }

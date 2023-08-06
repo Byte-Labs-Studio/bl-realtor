@@ -2,6 +2,7 @@
 @import './colors.css';
 @import './generic-components.css';
 @import './global.css';
+@import './form-row-wrapper.css';
 
 @import './properties/properties.css';
 @import './properties/property-card.css';

@@ -2,10 +2,9 @@
 	import PropertyCard from "@components/properties/PropertyCard.svelte"
     import DropdownComponent from "@components/generic/DropdownComponent.svelte"
     import type { IProperty } from '@typings/type'
+    import { PROPERTIES } from '@store/stores'
 	import PropertyDetailsModal from "./PropertyDetailsModal.svelte"
 	import ManagePropertyModal from "./ManagePropertyModal.svelte"
-	import { onMount } from "svelte"
-	import Properties from "@components/Properties.svelte"
 
     const highLowDropdown = ['High to Low', 'Low to High'];
     let selectedHighLowValue = highLowDropdown[0];
@@ -16,11 +15,17 @@
     const typeDropdown = ['House', 'Apartments'];
     let selectedTypeValue = typeDropdown[0];
 
-    let properties: IProperty[] = []
+    let selectedProperty: IProperty | null = null;
 
-    onMount(() => {
-        console.log('here: ', properties)
-    })
+    $: {
+        if($PROPERTIES) {
+            console.log('properties: ', $PROPERTIES)
+        }
+
+        if(selectedProperty) {
+            console.log('selected property: ', selectedProperty);
+        }
+    }
 </script>
 <div class="properties-base">
     <div class="search-wrapper">
@@ -47,14 +52,13 @@
         </div>
     </div>
 
-    <div class="property-listing-wrapper">
-        <PropertyCard id="property-card-1" />
-        <PropertyCard id="property-card-2" />
-        <PropertyCard id="property-card-3" />
-        <PropertyCard id="property-card-4" />
-        <PropertyCard id="property-card-5" />
-        <PropertyCard id="property-card-6" />
-    </div>
+    {#key $PROPERTIES}
+        <div class="property-listing-wrapper">
+            {#each $PROPERTIES as property, i}
+                <PropertyCard id="property-card-1" property={property} bind:selectedProperty />
+            {/each}
+        </div>
+    {/key}
 
     <!-- <PropertyDetailsModal /> -->
     <!-- <ManagePropertyModal /> -->

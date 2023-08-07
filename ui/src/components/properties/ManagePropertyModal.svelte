@@ -1,9 +1,53 @@
 <script lang="ts">
 	import FormWrapperDropdown from '@components/generic/FormWrapperDropdown.svelte'
     import SetNotSetIndicator from '@components/generic/SetNotSetIndicator.svelte'
+    import { TEMP_HIDE, PROPERTIES, SHELLS, REALTOR_GRADE, CONFIG, } from '@store/stores'
+    import type { IProperty } from '@typings/type'
+	import { SendNUI } from '@utils/SendNUI'
     import { fade } from 'svelte/transition';
 
-    export let manageProperty: boolean=false;
+    export let manageProperty: boolean=false, selectedProperty: IProperty | null = null;
+
+    const index = $PROPERTIES.findIndex(
+		(property) => property.property_id === selectedProperty.property_id
+	);
+
+    let forSaleDropDownValues = ['For Sale', 'Not For Sale'], selectedForSaleDropdownValue = selectedProperty.for_sale === 1 ? forSaleDropDownValues[0] : forSaleDropDownValues[1];
+
+    function updateForSaleDropdownValue(value) {
+        const isForSale = value === forSaleDropDownValues[0] ? true : false;
+        SendNUI('updatePropertyData', {
+            type: 'UpdateForSale',
+            property_id: selectedProperty.property_id,
+            data: {forsale: value === isForSale},
+        });
+        $PROPERTIES[index].for_sale = isForSale ? 1 : 0
+        selectedProperty.for_sale = isForSale ? 1 : 0
+
+        selectedForSaleDropdownValue = value;
+
+        console.log("selectedpropert: ", selectedProperty)
+    }
+
+    let finalizedOwner = selectedProperty.owner ? selectedProperty.owner : '';
+
+    let description = selectedProperty.description ?? '';
+
+    let propertyPrice = selectedProperty.price;
+
+    let newShell = selectedProperty.shell;
+
+    function updatePropertyValues(typeUpdate, dataObject, key, value) {
+        SendNUI('updatePropertyData', {
+            type: typeUpdate,
+            property_id: selectedProperty.property_id,
+            data: dataObject,
+        });
+        $PROPERTIES[index][key] = value
+        selectedProperty[key] = value
+
+        console.log("selectedpropert: ", selectedProperty)
+    }
 </script>
 
 <div class="modal large-footer-modal" tabindex="-1" aria-hidden="true" transition:fade="{{duration: 100}}">
@@ -33,33 +77,37 @@
                         </div>
 
                         <div class="right-column">
-                            <div id="sell-property" class="form-row-wrapper">
-                                <p class="label">Sell Property</p>
-                            
-                                <div class="action-row">
-                                    <SetNotSetIndicator leftValue="Set" rightValue="For Sale" good={true} />
-                                    
-                                    <div style="margin-left: 0.5vw;">
-                                        <FormWrapperDropdown dropdownValues={['For Sale']} label="" insideLabel="Change: " selectedValue="For Sale" />
+                            {#if $REALTOR_GRADE >= $CONFIG.changePropertyForSale}
+                                <div id="sell-property" class="form-row-wrapper">
+                                    <p class="label">Sell Property</p>
+                                
+                                    <div class="action-row">
+                                        <SetNotSetIndicator leftValue={selectedProperty.for_sale === 1 ? "Set" : "Not Set"} rightValue={selectedForSaleDropdownValue} good={selectedProperty.for_sale === 1} />
+                                        
+                                        <div style="margin-left: 0.5vw;">
+                                            <FormWrapperDropdown dropdownValues={forSaleDropDownValues} label="" insideLabel="Change: " selectedValue={selectedForSaleDropdownValue} on:selected-dropdown={(event) => updateForSaleDropdownValue(event.detail)} />
+                                        </div>
+                                        
                                     </div>
-                                    
                                 </div>
-                            </div>
+                            {/if}
 
-                            <div id="finalize-sell-property" class="form-row-wrapper">
-                                <p class="label">Finalize Sell Property</p>
-                            
-                                <div class="action-row">
-                                    <SetNotSetIndicator leftValue="Not Set" rightValue="" good={false} />
-                                    <input type="text" placeholder="ID: 34343434343" style="width: 10vw;" />
+                            {#if $REALTOR_GRADE >= $CONFIG.sellProperty && selectedProperty.for_sale == 1}
+                                <div id="finalize-sell-property" class="form-row-wrapper">
+                                    <p class="label">Finalize Sell Property</p>
+                                
+                                    <div class="action-row">
+                                        <SetNotSetIndicator leftValue={finalizedOwner.trim() !== "" ? "Set" : "Not Set"} rightValue="" good={finalizedOwner.trim() !== ""} />
+                                        <input type="text" placeholder="ID: 34343434343" style="width: 10vw;" bind:value={finalizedOwner} on:keyup={() => updatePropertyValues('UpdateOwner', {targetSrc: finalizedOwner}, 'owner', finalizedOwner)} />
+                                    </div>
                                 </div>
-                            </div>
+                            {/if}
 
                             <div id="manage-description" class="form-row-wrapper">
                                 <p class="label">Manage Description</p>
                             
                                 <div class="action-row">
-                                    <textarea rows="3" placeholder="Write a short and sweet description about yourself..." style="width: 18vw;" />
+                                    <textarea rows="3" placeholder="Write a short and sweet description about yourself..." style="width: 18vw;" bind:value={description} on:keyup={() => updatePropertyValues('UpdateDescription', {description: description}, 'description', description)} />
                                 </div>
                             </div>
 
@@ -67,7 +115,7 @@
                                 <p class="label">Manage Price</p>
                             
                                 <div class="action-row">
-                                    <input type="text" placeholder="$1000000000" style="width: 10vw;" />
+                                    <input type="text" placeholder="$1000000000" style="width: 10vw;" bind:value={propertyPrice} on:keyup={() => updatePropertyValues('UpdatePrice', {price: propertyPrice}, 'price', propertyPrice)} />
                                 </div>
                             </div>
 
@@ -75,7 +123,7 @@
                                 <p class="label">Manage Shell</p>
                             
                                 <div class="action-row">
-                                    <FormWrapperDropdown dropdownValues={[]} label="" id="manage-dd-shell" selectedValue="House" insideLabel="Type: " />
+                                    <FormWrapperDropdown dropdownValues={Object.keys($SHELLS)} label="" id="manage-dd-shell" selectedValue={newShell} insideLabel="Type: " on:selected-dropdown={(event) => {newShell = event.detail; updatePropertyValues('UpdateShell', {shell: newShell}, 'shell', newShell);}}/>
                                 </div>
                             </div>
 

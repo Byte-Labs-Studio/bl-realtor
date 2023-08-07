@@ -139,6 +139,9 @@
   
   .form-options-wrapper {
     width: 100%;
+    min-height: 1vw;
+    max-height: 7vw;
+    overflow-y: auto;
   }
   
   .form-options-wrapper > .form-no-items-found {

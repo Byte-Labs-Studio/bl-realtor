@@ -159,6 +159,6 @@
     {#if selectedProperty && !manageProperty}
         <PropertyDetailsModal bind:selectedProperty bind:manageProperty />
     {:else if selectedProperty && manageProperty}
-        <ManagePropertyModal bind:manageProperty />
+        <ManagePropertyModal selectedProperty={selectedProperty} bind:manageProperty />
     {/if}
 </div>

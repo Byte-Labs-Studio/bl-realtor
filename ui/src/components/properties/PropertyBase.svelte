@@ -110,7 +110,7 @@
             console.log('selected property: ', selectedProperty);
         }
 
-        if(searchTerm) {
+        if(searchTerm || searchTerm.trim() === "") {
             filter();
         }
     }

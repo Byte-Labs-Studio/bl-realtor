@@ -4,6 +4,7 @@
   .manage-property-large-footer-modal-body-data {
     padding: 1.2vw 1vw !important;
     height: 35.5vw !important;
+    overflow-y: auto;
   }
 
   .large-footer-modal-body > .large-footer-modal-body-data > .data-details-manage-property {

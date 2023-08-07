@@ -1,7 +1,9 @@
-<script>
+<script lang="ts">
 	import FormWrapperDropdown from '@components/generic/FormWrapperDropdown.svelte'
-import SetNotSetIndicator from '@components/generic/SetNotSetIndicator.svelte'
+    import SetNotSetIndicator from '@components/generic/SetNotSetIndicator.svelte'
     import { fade } from 'svelte/transition';
+
+    export let manageProperty: boolean=false;
 </script>
 
 <div class="modal large-footer-modal" tabindex="-1" aria-hidden="true" transition:fade="{{duration: 100}}">
@@ -14,7 +16,7 @@ import SetNotSetIndicator from '@components/generic/SetNotSetIndicator.svelte'
                         <i class="fas fa-pen info-icon"></i>
                         <p>Manage Property</p>
                     </div>
-                    <div>
+                    <div on:click={() => manageProperty = false}>
                         <i class="fas fa-xmark close-icon"></i>
                     </div>
                 </div>
@@ -36,7 +38,11 @@ import SetNotSetIndicator from '@components/generic/SetNotSetIndicator.svelte'
                             
                                 <div class="action-row">
                                     <SetNotSetIndicator leftValue="Set" rightValue="For Sale" good={true} />
-                                    <FormWrapperDropdown dropdownValues={['For Sale']} label="" insideLabel="Change: " selectedValue="For Sale" />
+                                    
+                                    <div style="margin-left: 0.5vw;">
+                                        <FormWrapperDropdown dropdownValues={['For Sale']} label="" insideLabel="Change: " selectedValue="For Sale" />
+                                    </div>
+                                    
                                 </div>
                             </div>
 
@@ -73,7 +79,7 @@ import SetNotSetIndicator from '@components/generic/SetNotSetIndicator.svelte'
                                 </div>
                             </div>
 
-                            <div id="manage-price" class="form-row-wrapper">
+                            <div id="add-images" class="form-row-wrapper" style="margin-top: 2vw">
                                 <p class="label">Add Images</p>
                             
                                 <div class="action-row">

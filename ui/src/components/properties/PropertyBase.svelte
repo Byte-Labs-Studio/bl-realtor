@@ -15,7 +15,7 @@
     const typeDropdown = ['House', 'Apartments'];
     let selectedTypeValue = typeDropdown[0];
 
-    let selectedProperty: IProperty | null = null, manageProperty = false;
+    let selectedProperty: IProperty | null = null, manageProperty: boolean = false;
 
     let searchTerm = '', filteredProperties: IProperty[] = [];
 
@@ -157,8 +157,8 @@
     {/key}
     
     {#if selectedProperty && !manageProperty}
-        <PropertyDetailsModal bind:selectedProperty />
+        <PropertyDetailsModal bind:selectedProperty bind:manageProperty />
     {:else if selectedProperty && manageProperty}
-        <ManagePropertyModal />
+        <ManagePropertyModal bind:manageProperty />
     {/if}
 </div>

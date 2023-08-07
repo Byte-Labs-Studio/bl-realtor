@@ -3,7 +3,7 @@
     import type { IProperty } from '@typings/type';
     import { REALTOR_GRADE, SHELLS } from '@store/stores';
 
-    export let selectedProperty: IProperty | null = null;
+    export let selectedProperty: IProperty | null = null, manageProperty: boolean=false;
 
     function getImgArray() {
 		let shellImgs = selectedProperty.extra_imgs
@@ -89,7 +89,7 @@
                 </div>
 
                 <div class="large-footer-modal-footer">
-                    <button>Manage Property</button>
+                    <button on:click={() => manageProperty = true}>Manage Property</button>
                 </div>
             </div>
         </div>

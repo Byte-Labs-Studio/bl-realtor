@@ -69,6 +69,21 @@
 </div>
 
 <style>
+  .form-dropdown {
+    display: flex;
+    flex-direction: row;
+    /* font-size: 0.9vw; */
+
+    z-index: 1;
+
+    position: absolute;
+  }
+
+  .form-dropdown > label {
+    margin: 0 0.2vw;
+    color: var(--light-text);
+  }
+
     .form-dropdown-wrapper {
     display: flex;
     flex-direction: column;
@@ -81,12 +96,12 @@
     border: 1px solid var(--light-border-color-2);
     
     color: var(--app-name);
-    border-radius: 0.2vw;
+    border-radius: 0.1vw;
   }
   
   .form-select-wrapper {
     width: auto;
-    height: 1.5vw;
+    /* height: 1.5vw; */
     
     display: flex;
     flex-direction: row;
@@ -99,7 +114,7 @@
   
   .form-select-wrapper-selected-value {
     font-size: 0.6vw;
-    padding: 0.2vw;
+    padding: 0.15vw 0.2vw 0.25vw 0.2vw;
     margin-right: 0.2vw;
 
     display: flex;

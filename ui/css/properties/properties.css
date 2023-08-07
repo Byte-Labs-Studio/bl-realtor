@@ -82,9 +82,9 @@
     flex-direction: row;
 }
 
-.properties-base > .properties-heading-wrapper > .filters-wrapper > div {
+/* .properties-base > .properties-heading-wrapper > .filters-wrapper > div {
     margin-right: 0.5vw;
-}
+} */
 /** properties list heading - end **/
 
 /** PROPERTY - LISTING WRAPPER - start **/

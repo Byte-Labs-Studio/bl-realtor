@@ -17,13 +17,101 @@
 
     let selectedProperty: IProperty | null = null;
 
-    $: {
-        if($PROPERTIES) {
-            console.log('properties: ', $PROPERTIES)
+    let searchTerm = '', filteredProperties: IProperty[] = [];
+
+    PROPERTIES.subscribe((value) => {
+		if (value) {
+			filter();
+		}
+	});
+
+    function filter() {
+		filteredProperties = []
+
+		setTimeout(() => {
+			let properties: IProperty[] = $PROPERTIES;
+			properties = filterForSale(properties);
+			properties = filterPriceSort(properties);
+			properties = filterSearch(properties);
+			filteredProperties = filterApartment(properties);
+		}, 1);
+	}
+
+    function filterApartment(properties: IProperty[]) {
+		// filter properties that have for_sale = 1 or true
+		if (selectedTypeValue === typeDropdown[1]) return properties // include apartments (all properties)
+		
+        properties = properties.filter((property) => !property.apartment)
+		
+        return properties;
+	}
+
+	function filterForSale(properties: IProperty[]) {
+		// filter properties that have for_sale = 1 or true
+		if (selectedForSaleValue === forSaleDropdown[1]) return properties;
+
+		properties = properties.filter((property) => property.for_sale)
+		
+        return properties
+	}
+
+    function filterSearch(properties: IProperty[]) {
+		if (searchTerm.length < 1) return properties;
+
+		properties = properties.filter((property) => {
+			const streetFilter = property.street ? property.street.toLowerCase().includes(searchTerm.toLowerCase()) : false;
+			
+            const regionFilter = property.region ? property.region.toLowerCase().includes(searchTerm.toLowerCase()) : false;
+			
+            const descriptionFilter = property.description.toLowerCase().includes(searchTerm.toLowerCase());
+
+			const shellFilter = property.shell.toLowerCase().includes(searchTerm.toLowerCase());
+
+			const apartmentFilter = property.apartment ? property.apartment.toLowerCase().includes(searchTerm.toLowerCase()) : false;
+			
+            const propertyNumberFilter = property.property_id.toString().includes(searchTerm.toLowerCase()) ?? false;
+			
+            return (
+				streetFilter || descriptionFilter || shellFilter || regionFilter || apartmentFilter || propertyNumberFilter
+			)
+		});
+
+		return properties;
+	}
+
+	function filterPriceSort(properties: IProperty[]) {
+		if (selectedHighLowValue === highLowDropdown[1]) { // low to high
+			properties = properties.sort((a, b) => a.price - b.price)
+		} else {
+			properties = properties.sort((a, b) => b.price - a.price)
+		}
+
+		return properties
+	}
+
+    function handleDropDownSelections(key, value) {
+        if(key === 'high-low') {
+            selectedHighLowValue = value
         }
 
+        if(key === 'for-sale') {
+            selectedForSaleValue = value
+        }
+
+        if(key === 'type') {
+            selectedTypeValue = value
+        }
+
+        filter();
+    }
+
+    $: {
         if(selectedProperty) {
             console.log('selected property: ', selectedProperty);
+        }
+
+        if(searchTerm) {
+            filter();
         }
     }
 </script>
@@ -36,7 +124,7 @@
             <p class="light-text">From houses, to garages, to the best sales.</p>
 
             <div class="search-bar" >
-                <input type="text" placeholder="Explore all real estate" />
+                <input type="text" placeholder="Explore all real estate" bind:value={searchTerm} />
                 <i class="fas fa-magnifying-glass"></i>
             </div>
         </div>
@@ -46,16 +134,24 @@
         <p class="heading">All Properties Listed  </p>
 
         <div class="filters-wrapper">
-            <DropdownComponent dropdownValues={highLowDropdown} label="" selectedValue={selectedHighLowValue} id="high-low-dd" />
-            <DropdownComponent dropdownValues={forSaleDropdown} label="" selectedValue={selectedForSaleValue} id="for-sale-dd" />
-            <DropdownComponent dropdownValues={typeDropdown} label="" selectedValue={selectedTypeValue} insideLabel="Type: " id="type-dd" />
+            <div>
+                <DropdownComponent dropdownValues={highLowDropdown} label="" selectedValue={selectedHighLowValue} id="high-low-dd" on:selected-dropdown={(event) => handleDropDownSelections('high-low', event.detail)} />
+            </div>
+
+            <div style="margin-left: 7vw;">
+                <DropdownComponent dropdownValues={forSaleDropdown} label="" selectedValue={selectedForSaleValue} id="for-sale-dd" on:selected-dropdown={(event) => handleDropDownSelections('for-sale', event.detail)} />
+            </div>
+
+            <div style="margin-left: 7vw;">
+                <DropdownComponent dropdownValues={typeDropdown} label="" selectedValue={selectedTypeValue} insideLabel="Type: " id="type-dd" on:selected-dropdown={(event) => handleDropDownSelections('type', event.detail)} />
+            </div>
         </div>
     </div>
 
     {#key $PROPERTIES}
-        <div class="property-listing-wrapper">
-            {#each $PROPERTIES as property, i}
-                <PropertyCard id="property-card-1" property={property} bind:selectedProperty />
+        <div class="property-listing-wrapper" style="margin-top: 2.5vw;">
+            {#each filteredProperties as property, i}
+                <PropertyCard id={"property-card-"+i} property={property} bind:selectedProperty />
             {/each}
         </div>
     {/key}

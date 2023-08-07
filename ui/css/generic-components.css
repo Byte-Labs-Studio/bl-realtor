@@ -1,4 +1,18 @@
 /** ARRAY DROPDOWN - start **/
+.dropdown {
+  display: flex;
+  flex-direction: row;
+  font-size: 0.9vw;
+
+  z-index: 1;
+
+  position: absolute;
+}
+
+.dropdown > label {
+  margin: 0 0.2vw;
+  color: var(--light-text);
+}
 
 .dropdown-wrapper {
     display: flex;
@@ -64,7 +78,7 @@
   .option-child {
     cursor: pointer;
     
-    padding: 0.17vw 0.8vw 0.17vw 0.3vw;
+    padding: 0.17vw 0.8vw 0.17vw 0.45vw;
     min-height: 1.7vw;
     border-radius: 0.2vw;
     font-size: 0.7vw;

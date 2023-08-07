@@ -48,5 +48,5 @@
     </div>
 
     <!-- <PropertyDetailsModal /> -->
-    <ManagePropertyModal />
+    <!-- <ManagePropertyModal /> -->
 </div>

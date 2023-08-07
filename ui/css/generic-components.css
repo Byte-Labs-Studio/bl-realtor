@@ -184,6 +184,7 @@
   .large-footer-modal-body > .header > div > .close-icon {
     color: var(--less-light-border-color);
     padding-right: 0.2vw;
+    cursor: pointer;
   }
   /** HEADER - end **/
 

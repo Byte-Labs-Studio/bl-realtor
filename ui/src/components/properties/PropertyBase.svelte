@@ -15,7 +15,7 @@
     const typeDropdown = ['House', 'Apartments'];
     let selectedTypeValue = typeDropdown[0];
 
-    let selectedProperty: IProperty | null = null;
+    let selectedProperty: IProperty | null = null, manageProperty = false;
 
     let searchTerm = '', filteredProperties: IProperty[] = [];
 
@@ -106,9 +106,9 @@
     }
 
     $: {
-        if(selectedProperty) {
-            console.log('selected property: ', selectedProperty);
-        }
+        // if(selectedProperty) {
+        //     console.log('selected property: ', selectedProperty);
+        // }
 
         if(searchTerm || searchTerm.trim() === "") {
             filter();
@@ -155,7 +155,10 @@
             {/each}
         </div>
     {/key}
-
-    <!-- <PropertyDetailsModal /> -->
-    <!-- <ManagePropertyModal /> -->
+    
+    {#if selectedProperty && !manageProperty}
+        <PropertyDetailsModal bind:selectedProperty />
+    {:else if selectedProperty && manageProperty}
+        <ManagePropertyModal />
+    {/if}
 </div>

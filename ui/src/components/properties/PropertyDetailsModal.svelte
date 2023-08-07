@@ -1,5 +1,16 @@
-<script>
+<script lang="ts">
     import { fade } from 'svelte/transition';
+    import type { IProperty } from '@typings/type';
+    import { REALTOR_GRADE, SHELLS } from '@store/stores';
+
+    export let selectedProperty: IProperty | null = null;
+
+    function getImgArray() {
+		let shellImgs = selectedProperty.extra_imgs
+		const shell = selectedProperty.shell
+		shellImgs = [...shellImgs, ...$SHELLS[shell].imgs]
+		return shellImgs
+	}
 </script>
 
 <div class="modal large-footer-modal" tabindex="-1" aria-hidden="true" transition:fade="{{duration: 100}}">
@@ -12,7 +23,7 @@
                         <i class="fas fa-circle-info info-icon"></i>
                         <p>Property Details</p>
                     </div>
-                    <div>
+                    <div on:click={() => selectedProperty = null}>
                         <i class="fas fa-xmark close-icon"></i>
                     </div>
                 </div>
@@ -23,23 +34,26 @@
                     <div class="data-details-property">
                         <div class="left-column">
                             <p class="property-name">
-                                Elgin Ave 2
+                                {selectedProperty.label} {selectedProperty.property_id}
                             </p>
 
                             <p class="property-info">
-                                The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous?
+                                {selectedProperty.description}
                             </p>
 
                             <div class="gallery-image-wrapper">
-                                <img src="/images/apts-bg.png" />
-                                <img src="/images/apts-bg.png" />
-                                <img src="/images/apts-bg.png" />
-                                <img src="/images/apts-bg.png" />
+                                {#key selectedProperty.shell}
+                                    {#key selectedProperty.extra_imgs}
+                                        {#each getImgArray() as img}
+                                            <img src={img.url} />
+                                        {/each}
+                                    {/key}
+                                {/key}
                             </div>
                         </div>
 
                         <div class="right-column">
-                            <p class="title">$100,000 USD</p>
+                            <p class="title">$ {selectedProperty.price?.toLocaleString()} USD</p>
 
                             <button class="waypoint">
                                 <i class="fas fa-location-dot"></i>
@@ -47,13 +61,15 @@
                             </button>
 
                             <div class="tiles-wrapper">
-                                <div class="each-tile">
-                                    <i class="fas fa-dollar-sign"></i>
-                                    For Sale
-                                </div>
+                                {#if $REALTOR_GRADE >= 0 && selectedProperty.for_sale}
+                                    <div class="each-tile">
+                                        <i class="fas fa-dollar-sign"></i>
+                                        For Sale
+                                    </div>
+                                {/if}
                                 <div class="each-tile">
                                     <i class="fas fa-image"></i>
-                                    Gallery
+                                    Gallery: {$SHELLS[selectedProperty.shell] ? $SHELLS[selectedProperty.shell].imgs.length : 0}
                                 </div>
                                 <div class="each-tile">
                                     <i class="fas fa-bath"></i>
@@ -61,11 +77,11 @@
                                 </div>
                                 <div class="each-tile">
                                     <i class="fas fa-house-chimney"></i>
-                                    House
+                                    {selectedProperty.shell}
                                 </div>
                                 <div class="each-tile">
                                     <i class="fas fa-truck-front"></i>
-                                    Garage: Yes
+                                    Garage: {selectedProperty.garage_data ? Object.keys(selectedProperty.garage_data).length > 0 ? 'Yes' : 'No' : 'No'}
                                 </div>
                             </div>
                         </div>

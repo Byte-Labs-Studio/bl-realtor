@@ -48,6 +48,18 @@
 
         console.log("selectedpropert: ", selectedProperty)
     }
+
+    let doorValueSet = selectedProperty.door_data.length > 0 ? true : false;
+    let garageValueSet = selectedProperty.garage_data ? (selectedProperty.garage_data.x ? true : false) : false;
+
+    function handleZonePlacement(type) {
+        SendNUI('startZonePlacement', {
+            type: type,
+            property_id: selectedProperty.property_id,
+        }).then(() => {
+            $TEMP_HIDE = true
+        });
+    }
 </script>
 
 <div class="modal large-footer-modal" tabindex="-1" aria-hidden="true" transition:fade="{{duration: 100}}">
@@ -152,8 +164,8 @@
                                 <p class="label">Manage Door</p>
                             
                                 <div class="action-row">
-                                    <SetNotSetIndicator leftValue="Door" rightValue="Set" good={true} />
-                                    <button class="regular-button">New Location</button>
+                                    <SetNotSetIndicator leftValue="Door" rightValue={doorValueSet ? "Set" : "Not Set"} good={doorValueSet} />
+                                    <button class="regular-button" on:click={() => handleZonePlacement('door')}>New Location</button>
                                     <button class="disable-button">Remove</button>
                                 </div>
                             </div>
@@ -162,9 +174,9 @@
                                 <p class="label">Manage Garage</p>
                             
                                 <div class="action-row">
-                                    <SetNotSetIndicator leftValue="Garage" rightValue="Set" good={true} />
-                                    <button class="regular-button">New Location</button>
-                                    <button class="disable-button">Remove</button>
+                                    <SetNotSetIndicator leftValue="Garage" rightValue={garageValueSet ? "Set" : "Not Set"} good={garageValueSet} />
+                                    <button class="regular-button" on:click={() => handleZonePlacement('garage')}>New Location</button>
+                                    <button class="disable-button" on:click={() => updatePropertyValues('UpdateGarage', {}, 'garage_data', null)}>Remove</button>
                                 </div>
                             </div>
                         </div>

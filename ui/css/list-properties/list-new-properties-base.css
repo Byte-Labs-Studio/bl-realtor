@@ -110,7 +110,34 @@
     margin-top: 0.3vw;
   }
 
-  .list-new-property-form > .body-wrapper > .right-column {
+  /* .list-new-property-form > .body-wrapper > .right-column {
 
+  } */
+
+  .list-new-property-form > .list-new-property-form-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    background-color: var(--footer-color);
+    height: 2.3vw;
+    padding: 0.55vw 1vw;
+  }
+  .list-new-property-form > .list-new-property-form-footer > button {
+    border-radius: 0.1vw;
+
+    width: fit-content;
+
+    font-size: 0.5vw;
+    font-weight: 600;
+
+    padding: 0.15vw 0.5vw;
+    text-align: center;
+
+    display: flex;
+    flex-direction: row;
+
+    background: linear-gradient(0deg, #313131, #313131), linear-gradient(0deg, var(--light-border-color-2), var(--light-border-color-2));
+    border: 0.1px solid var(--light-border-color-2);
   }
 /** LIST NEW PROPERTY FORM - end **/

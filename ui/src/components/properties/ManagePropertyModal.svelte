@@ -4,7 +4,10 @@
     import { TEMP_HIDE, PROPERTIES, SHELLS, REALTOR_GRADE, CONFIG, } from '@store/stores'
     import type { IProperty } from '@typings/type'
 	import { SendNUI } from '@utils/SendNUI'
+	import { createEventDispatcher } from 'svelte'
     import { fade } from 'svelte/transition';
+
+    const dispatch = createEventDispatcher();
 
     export let manageProperty: boolean=false, selectedProperty: IProperty | null = null;
 
@@ -75,6 +78,10 @@
         newImageUrl = ''
 
         updatePropertyValues('UpdateImages', {imgs: propertyImages}, 'extra_imgs', propertyImages);
+    }
+
+    function deleteProperty() {
+        dispatch('delete-property', selectedProperty);
     }
 </script>
 
@@ -205,9 +212,11 @@
                 </div>
 
                 <div class="large-footer-modal-footer-manage-property">
-                    <button class="delete-button">
-                        Delete Property
-                    </button>
+                    {#if $REALTOR_GRADE >= $CONFIG.deleteProperty}
+                        <button class="delete-button" on:click={deleteProperty}>
+                            Delete Property
+                        </button>
+                    {/if}
                 </div>
             </div>
         </div>

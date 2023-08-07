@@ -5,6 +5,7 @@
     import { PROPERTIES } from '@store/stores'
 	import PropertyDetailsModal from "./PropertyDetailsModal.svelte"
 	import ManagePropertyModal from "./ManagePropertyModal.svelte"
+	import { SendNUI } from "@utils/SendNUI"
 
     const highLowDropdown = ['High to Low', 'Low to High'];
     let selectedHighLowValue = highLowDropdown[0];
@@ -105,11 +106,30 @@
         filter();
     }
 
-    $: {
-        // if(selectedProperty) {
-        //     console.log('selected property: ', selectedProperty);
-        // }
+    function deleteProperty(event) {
+        const propertyToDelete = event.detail;
 
+        if (propertyToDelete == null) return;
+
+        SendNUI('updatePropertyData', {
+            type: 'DeleteProperty',
+            property_id: selectedProperty.property_id,
+            data: {},
+        });
+
+        const index = $PROPERTIES.findIndex(
+            (property) => property.property_id === propertyToDelete.property_id
+        );
+
+        $PROPERTIES.splice(index, 1);
+        
+        manageProperty = false;
+        selectedProperty = null;
+
+        filter();
+    }
+
+    $: {
         if(searchTerm || searchTerm.trim() === "") {
             filter();
         }
@@ -159,6 +179,6 @@
     {#if selectedProperty && !manageProperty}
         <PropertyDetailsModal bind:selectedProperty bind:manageProperty />
     {:else if selectedProperty && manageProperty}
-        <ManagePropertyModal selectedProperty={selectedProperty} bind:manageProperty />
+        <ManagePropertyModal selectedProperty={selectedProperty} bind:manageProperty on:delete-property={(event) => deleteProperty(event)} />
     {/if}
 </div>

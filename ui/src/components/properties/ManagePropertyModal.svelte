@@ -28,8 +28,6 @@
         selectedProperty.for_sale = isForSale ? 1 : 0
 
         selectedForSaleDropdownValue = value;
-
-        console.log("selectedpropert: ", selectedProperty)
     }
 
     let finalizedOwner = selectedProperty.owner ? selectedProperty.owner : '';
@@ -48,8 +46,6 @@
         });
         $PROPERTIES[index][key] = value
         selectedProperty[key] = value
-
-        console.log("selectedpropert: ", selectedProperty)
     }
 
     let doorValueSet = selectedProperty.door_data.length > 0 ? true : false;

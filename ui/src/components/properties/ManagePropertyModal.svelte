@@ -60,6 +60,22 @@
             $TEMP_HIDE = true
         });
     }
+
+    let propertyImages = selectedProperty.extra_imgs, newImageName = '', newImageUrl = '';
+
+    function addNewImage() {
+        propertyImages = [
+            ...propertyImages,
+            {
+                label: newImageName,
+                url: newImageUrl,
+            },
+        ]
+        newImageName = ''
+        newImageUrl = ''
+
+        updatePropertyValues('UpdateImages', {imgs: propertyImages}, 'extra_imgs', propertyImages);
+    }
 </script>
 
 <div class="modal large-footer-modal" tabindex="-1" aria-hidden="true" transition:fade="{{duration: 100}}">
@@ -143,20 +159,25 @@
                                 <p class="label">Add Images</p>
                             
                                 <div class="action-row">
-                                    <input id="img-name" type="text" placeholder="Name" style="width: 7vw;" />
-                                    <input id="img-url" type="text" placeholder="URL" style="width: 7vw;" />
-                                    <button class="regular-button">Add</button>
+                                    <input id="img-name" type="text" placeholder="Name" style="width: 7vw;" bind:value={newImageName} />
+                                    <input id="img-url" type="text" placeholder="URL" style="width: 7vw;" bind:value={newImageUrl} />
+                                    <button class="regular-button" on:click={addNewImage}>Add</button>
                                 </div>
 
                                 <div class="image-tiles-wrapper">
-                                    <div>
+                                    {#each propertyImages as image, index}
+                                        <div>
+                                            <img src={image.url} />
+                                        </div>
+                                    {/each}
+                                    <!-- <div>
                                         <img src="/images/apt-card-img.png" />
                                     </div>
                                     <div></div>
                                     <div></div>
                                     <div></div>
                                     <div></div>
-                                    <div></div>
+                                    <div></div> -->
                                 </div>
                             </div>
 

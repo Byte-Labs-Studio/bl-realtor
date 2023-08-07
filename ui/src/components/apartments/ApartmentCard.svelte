@@ -1,8 +1,21 @@
-<div class="apartment-card-wrapper">
-    <img src="/images/apt-card-img.png" />
+<script lang="ts">
+    import type { IApartment } from '@typings/type'
+	import { fly } from 'svelte/transition'
+
+	export let selectedApartment: IApartment = null, apartment: IApartment = null, id="apt-card-0";
+
+	// cbf with typescript rn
+	let apartmentData: any = apartment.apartmentData
+</script>
+
+<div class="apartment-card-wrapper" id={id} 
+    on:click={() => (selectedApartment = apartment)}
+	in:fly={{ y: 10, duration: 250 }} >
+    
+    <img src={apartmentData.imgs[0].url} />
 
     <div class="details">
-        <p class="heading">Elgin Ave 2</p>
+        <p class="heading">{apartmentData.label}</p>
 
         <p class="info">Legion Square</p>
 

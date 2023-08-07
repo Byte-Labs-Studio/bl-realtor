@@ -1,8 +1,11 @@
-<script>
+<script lang="ts">
 	import PropertyCard from "@components/properties/PropertyCard.svelte"
     import DropdownComponent from "@components/generic/DropdownComponent.svelte"
+    import type { IProperty } from '@typings/type'
 	import PropertyDetailsModal from "./PropertyDetailsModal.svelte"
 	import ManagePropertyModal from "./ManagePropertyModal.svelte"
+	import { onMount } from "svelte"
+	import Properties from "@components/Properties.svelte"
 
     const highLowDropdown = ['High to Low', 'Low to High'];
     let selectedHighLowValue = highLowDropdown[0];
@@ -12,6 +15,12 @@
 
     const typeDropdown = ['House', 'Apartments'];
     let selectedTypeValue = typeDropdown[0];
+
+    let properties: IProperty[] = []
+
+    onMount(() => {
+        console.log('here: ', properties)
+    })
 </script>
 <div class="properties-base">
     <div class="search-wrapper">

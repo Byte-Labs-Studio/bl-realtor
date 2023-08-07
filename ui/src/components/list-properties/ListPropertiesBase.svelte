@@ -9,6 +9,47 @@
 
     let existingProperties = $PROPERTIES;
     let addingNewProperty = false;
+
+    let description: string = '';
+	let for_sale: boolean = true;
+	let price: number = 0;
+	let shell: string = Object.keys($SHELLS)[0];
+	let door_data: any = null;
+	let garage_data: any = null;
+
+    let valid: boolean = false;
+
+    ReceiveNUI('createdDoor', (data) => {
+		door_data = data
+	});
+
+	ReceiveNUI('createdGarage', (data) => {
+		garage_data = data
+	});
+
+    function createZone(type) {
+        SendNUI('create:createZone', { type: type })
+        $TEMP_HIDE = true
+    }
+
+    function removeGarage() {
+        SendNUI('create:removeGarage', {});
+    }
+
+    function createPropertyMethod() {
+        SendNUI("create:confirmListing");
+        addingNewProperty = false;
+    }
+
+    $: {
+        valid = description.length > 0 && price > 0 && shell.length > 0 && door_data
+        SendNUI('create:setTextFields', {
+            description: description,
+            for_sale: for_sale,
+            price: price,
+            shell: shell,
+        })
+    }
 </script>
 
 {#if existingProperties.length <= 0 && !addingNewProperty}
@@ -44,8 +85,8 @@
                     <p class="label">Door Creation</p>
                 
                     <div class="action-row">
-                        <SetNotSetIndicator leftValue="Door" rightValue="Not Set" good={false} />
-                        <button class="regular-button">Set Door</button>
+                        <SetNotSetIndicator leftValue="Door" rightValue={door_data ? "Set" : "Not Set"} good={door_data} />
+                        <button class="regular-button" on:click={() => createZone('door')}>{door_data ? 'Unset' : 'Set'}</button>
                     </div>
                 </div>
 
@@ -53,8 +94,8 @@
                     <p class="label">Garage Creation</p>
                 
                     <div class="action-row">
-                        <SetNotSetIndicator leftValue="Garage" rightValue="Set" good={true} />
-                        <button class="regular-button">Set Garage</button>
+                        <SetNotSetIndicator leftValue="Garage" rightValue={garage_data ? "Set" : "Not Set"} good={garage_data} />
+                        <button class="regular-button" on:click={() => garage_data ? removeGarage() : createZone('garage')}>{garage_data ? 'Remove Garage' : 'Set Garage'}</button>
                     </div>
                 </div>
 
@@ -62,7 +103,7 @@
                     <p class="label">Description</p>
                 
                     <div class="action-row">
-                        <textarea rows="5" placeholder="Write a short and sweet description about yourself..." />
+                        <textarea rows="5" placeholder="Write a short and sweet description about yourself..." bind:value={description} />
                     </div>
                 </div>
 
@@ -70,7 +111,7 @@
                     <p class="label">Price</p>
                 
                     <div class="action-row">
-                        <input type="text" placeholder="$1000000000" />
+                        <input type="number" placeholder="$1000000000" bind:value={price} />
                     </div>
                 </div>
 
@@ -78,14 +119,16 @@
                     <p class="label">Shell Type</p>
                 
                     <div class="action-row">
-                        <FormWrapperDropdown dropdownValues={[]} label="" id="new-listing-dd-shell-type" selectedValue="House" insideLabel="Type: " />
+                        <FormWrapperDropdown dropdownValues={Object.keys($SHELLS)} label="" id="new-listing-dd-shell-type" selectedValue={shell} insideLabel="Type: " on:selected-dropdown={(event) => shell = event.detail} />
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="list-new-property-form-footer">
-            <button>Create Property</button>
+            {#if !valid}
+                <button on:click={createPropertyMethod}>Create Property</button>
+            {/if}
         </div>
     </div>
 {/if}

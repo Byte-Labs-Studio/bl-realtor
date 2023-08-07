@@ -40,7 +40,7 @@
 .list-new-property-form {
     margin: 1vw;
 
-    height: 25vw;
+    height: 33vw;
     border-radius: 0.1vw;
 
     background: linear-gradient(0deg, #242424, #242424), linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
@@ -89,6 +89,7 @@
     flex-direction: row;
 
     margin-top: 0.5vw;
+    height: 28.1vw;
   }
 
   .list-new-property-form > .body-wrapper > .left-column {

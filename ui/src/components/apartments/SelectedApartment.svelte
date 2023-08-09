@@ -1,18 +1,15 @@
 <script lang="ts">
-	import FormWrapperDropdown from '@components/generic/FormWrapperDropdown.svelte'
-    import SetNotSetIndicator from '@components/generic/SetNotSetIndicator.svelte'
-    import { TEMP_HIDE, PROPERTIES, SHELLS, REALTOR_GRADE, CONFIG, } from '@store/stores'
+	import { PROPERTIES } from '@store/stores'
     import type { IApartment } from '@typings/type'
 	import { SendNUI } from '@utils/SendNUI'
-	import { createEventDispatcher, onMount } from 'svelte'
+	import { onMount } from 'svelte'
     import { fade } from 'svelte/transition';
-
-    const dispatch = createEventDispatcher();
 
     export let selectedApartment: IApartment | null = null;
 
     let tenants: string[] = [], tenantsResult: string[] = [];
     let searchTerm: string = "";
+    let tempSrc: string = null;
 
     onMount(()=>{
         const  apartmentName: string = selectedApartment.apartmentData.label as string
@@ -29,6 +26,15 @@
         })
     });
 
+    function addNewTenant() {
+        SendNUI('addTenantToApartment', {
+            apartment: selectedApartment.apartmentData.label, 
+            targetSrc: tempSrc
+        });
+        
+        selectedApartment = null;
+    }
+
     $: {
         if (searchTerm.length > 0) {
             tenantsResult = tenants.filter((tenant) => tenant.toLowerCase().includes(searchTerm.toLowerCase())) || []
@@ -36,8 +42,6 @@
             tenantsResult = tenants || [];
         }
     }
-
-    console.log('selected-apartment: ', selectedApartment)
 </script>
 
 {#if selectedApartment !== null}
@@ -97,15 +101,10 @@
                     </div>
 
                     <div class="large-footer-modal-footer-selected-apartment">
-                        <input placeholder="New ID" />
-                        <button class="add-button">
+                        <input placeholder="New ID" bind:value={tempSrc} />
+                        <button class="add-button" on:click={addNewTenant}>
                             Add
                         </button>
-                        <!-- {#if $REALTOR_GRADE >= $CONFIG.deleteProperty}
-                            <button class="delete-button" on:click={deleteProperty}>
-                                Delete Property
-                            </button>
-                        {/if} -->
                     </div>
                 </div>
             </div>

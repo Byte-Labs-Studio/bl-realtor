@@ -37,11 +37,6 @@
             </div>
 
             <div class="each-tile">
-                <i class="fas fa-bath"></i>
-                Baths: 2
-            </div>
-
-            <div class="each-tile">
                 <i class="fas fa-house-chimney"></i>
                 {property.shell}
             </div>

@@ -72,14 +72,12 @@
                                         <i class="fas fa-image"></i>
                                         Gallery: {$SHELLS[selectedProperty.shell] ? $SHELLS[selectedProperty.shell].imgs.length : 0}
                                     </div>
-                                    <div class="each-tile">
-                                        <i class="fas fa-bath"></i>
-                                        Baths: 2
-                                    </div>
+
                                     <div class="each-tile">
                                         <i class="fas fa-house-chimney"></i>
                                         {selectedProperty.shell}
                                     </div>
+                                    
                                     <div class="each-tile">
                                         <i class="fas fa-truck-front"></i>
                                         Garage: {selectedProperty.garage_data ? Object.keys(selectedProperty.garage_data).length > 0 ? 'Yes' : 'No' : 'No'}

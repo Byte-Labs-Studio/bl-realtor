@@ -2,6 +2,7 @@
 	import ApartmentCard from "@components/apartments/ApartmentCard.svelte"
     import { APARTMENTS } from '@store/stores'
     import type { IApartment } from '@typings/type'
+	import SelectedApartment from "./SelectedApartment.svelte"
 
     let selectedApartment: IApartment  = null;
 
@@ -23,4 +24,8 @@
             {/each}
         </div>
     {/key}
+
+    {#if selectedApartment}
+        <SelectedApartment bind:selectedApartment />
+    {/if}
 </div>

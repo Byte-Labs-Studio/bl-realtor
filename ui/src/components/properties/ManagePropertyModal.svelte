@@ -173,14 +173,6 @@
                                             <img src={image.url} />
                                         </div>
                                     {/each}
-                                    <!-- <div>
-                                        <img src="/images/apt-card-img.png" />
-                                    </div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div> -->
                                 </div>
                             </div>
 
